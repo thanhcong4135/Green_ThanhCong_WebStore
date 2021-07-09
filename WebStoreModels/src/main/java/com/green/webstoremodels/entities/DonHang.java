@@ -44,7 +44,7 @@ public class DonHang implements Serializable{
 	private TrangThaiDonHang trangthai;
 	
 	@OneToMany(mappedBy = "donhang", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<ChiTietDonHang> chitietDonHang;
+	private Set<ChiTietDonHang> chitietDonHangs;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private KhachHang khachhang;
@@ -86,12 +86,12 @@ public class DonHang implements Serializable{
 		this.trangthai = trangthai;
 	}
 
-	public Set<ChiTietDonHang> getChitietDonHang() {
-		return chitietDonHang;
+	public Set<ChiTietDonHang> getChitietDonHangs() {
+		return chitietDonHangs;
 	}
 
-	public void setChitietDonHang(Set<ChiTietDonHang> chitietDonHang) {
-		this.chitietDonHang = chitietDonHang;
+	public void setChitietDonHangs(Set<ChiTietDonHang> chitietDonHangs) {
+		this.chitietDonHangs = chitietDonHangs;
 	}
 
 	public KhachHang getKhachhang() {

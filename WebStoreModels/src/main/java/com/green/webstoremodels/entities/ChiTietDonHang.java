@@ -23,7 +23,7 @@ public class ChiTietDonHang implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "tenSP")
+	@Column(name = "tensanpham")
 	private String tenSP;
 	
 	@Column(name = "gia")

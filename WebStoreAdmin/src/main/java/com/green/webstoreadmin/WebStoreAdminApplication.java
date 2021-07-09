@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 @SpringBootApplication
-//@EnableConfigurationProperties
-//@EntityScan({"com.coffeemint.models"})
+@EnableConfigurationProperties
+@EntityScan({"com.green.webstoremodels"})
 public class WebStoreAdminApplication {
 
 	public static void main(String[] args) {

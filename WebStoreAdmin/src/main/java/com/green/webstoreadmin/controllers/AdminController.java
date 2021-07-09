@@ -9,6 +9,6 @@ public class AdminController {
 	
 	@RequestMapping("/")
 	public String showDashboard() {
-		return "NewFile";
+		return "index";
 	}
 }
