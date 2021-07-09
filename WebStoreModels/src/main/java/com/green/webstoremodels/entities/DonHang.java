@@ -15,11 +15,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.green.webstoremodels.enumerate.TrangThaiDonHang;
 
 @Entity
-@Table(name = "donhang")
+@Table(name = "donhangs")
 public class DonHang implements Serializable{
 
 	/**
@@ -32,19 +33,74 @@ public class DonHang implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "ADDRESS")
-	private String address;
+	@Column(name = "diachi")
+	private String diaChi;
 	
-	@Column(name = "TOTAL_PRICE")
-	private Float totalPrice;
+	@Column(name = "tongtien")
+	private Float tongTien;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "trangthai")
 	private TrangThaiDonHang trangthai;
 	
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	//private Set<OrderDetail> orderDetails;
+	@OneToMany(mappedBy = "donhang", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Set<ChiTietDonHang> chitietDonHang;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	private KhachHang khachhang;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	@Transient
+	public String getTenKH() {
+		return khachhang.getTenKH();
+	}
+	
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
+
+	public Float getTongTien() {
+		return tongTien;
+	}
+
+	public void setTongTien(Float tongTien) {
+		this.tongTien = tongTien;
+	}
+
+	public TrangThaiDonHang getTrangthai() {
+		return trangthai;
+	}
+
+	public void setTrangthai(TrangThaiDonHang trangthai) {
+		this.trangthai = trangthai;
+	}
+
+	public Set<ChiTietDonHang> getChitietDonHang() {
+		return chitietDonHang;
+	}
+
+	public void setChitietDonHang(Set<ChiTietDonHang> chitietDonHang) {
+		this.chitietDonHang = chitietDonHang;
+	}
+
+	public KhachHang getKhachhang() {
+		return khachhang;
+	}
+
+	public void setKhachhang(KhachHang khachhang) {
+		this.khachhang = khachhang;
+	}
+	
+	
 }
