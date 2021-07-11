@@ -27,7 +27,7 @@ public class ChucVu {
 	private String ten;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "nguoidungs_chucvus", joinColumns = @JoinColumn(name = "machucvu"),
+	@JoinTable(name = "nguoidung_chucvu", joinColumns = @JoinColumn(name = "machucvu"),
 	inverseJoinColumns = @JoinColumn(name = "manguoidung"))
 	private Set<NguoiDung> nguoidungs = new HashSet<>();
 

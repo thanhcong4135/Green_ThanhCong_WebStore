@@ -31,7 +31,7 @@ public class NguoiDung {
 	private Boolean enabled;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinTable(name = "nguoidungs_chucvus", joinColumns = @JoinColumn(name = "manguoidung"),
+	@JoinTable(name = "nguoidung_chucvu", joinColumns = @JoinColumn(name = "manguoidung"),
 			inverseJoinColumns = @JoinColumn(name = "machucvu"))
 	private Set<ChucVu> chucvus = new HashSet<>();
 

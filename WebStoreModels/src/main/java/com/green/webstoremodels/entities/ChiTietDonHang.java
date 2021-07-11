@@ -19,9 +19,9 @@ public class ChiTietDonHang implements Serializable{
 	private static final long serialVersionUID = -9087583472885766979L;
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "maCT")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private Integer ma;
 	
 	@Column(name = "tensanpham")
 	private String tenSP;
@@ -30,15 +30,15 @@ public class ChiTietDonHang implements Serializable{
 	private Float gia;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name= "donhang_id")
+	@JoinColumn(name= "maDH")
 	private DonHang donhang;
 
-	public Integer getId() {
-		return id;
+	public Integer getMa() {
+		return ma;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setMa(Integer ma) {
+		this.ma = ma;
 	}
 
 	public String getTenSP() {
