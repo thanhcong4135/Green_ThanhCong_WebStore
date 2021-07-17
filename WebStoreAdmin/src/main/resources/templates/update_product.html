@@ -9,7 +9,7 @@
         <meta name="author" content="" />
         <title>Dashboard - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link href="css/styles.css" rel="stylesheet" />
+        <link th:href="@{/css/styles.css}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
@@ -115,57 +115,42 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Update product</li>
                         </ol>
-                        <div class="row">                      
-                        </div>
                         
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Example
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-						                    <th>Code</th>
-						                    <th>Description</th>
-						                    <th>Price</th>
-						                    <th>Sale Price</th>
-						                    <th>Update</th>
-						                    <th>Delete</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name</th>
-						                    <th>Code</th>
-						                    <th>Description</th>
-						                    <th>Price</th>
-						                    <th>Sale Price</th>
-						                    <th>Update</th>
-						                    <th>Delete</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                        <tr  th:each="product : ${listProducts}">
-					                    <td th:text="${product.name}">Internet Explorer 4.0</td>
-					                    <td th:text="${product.code}">Win 95+</td>
-					                    <td th:text="${product.description}"> 4</td>
-					                    <td th:text="${product.price}">X</td>
-					                    <td th:text="${product.sale_price}">X</td>
-					                    <td>
-					                    	<a th:href="@{/edit-product/{code}(code=${product.code})}">Update</a>
-					                    </td>
-					                    <td>
-					                    	<a th:href="@{/delete-product/{id}(id=${product.id})}">Delete</a>
-					                    </td>
-					                    <!-- <td><a th:href="@{/edit/{code}(code=${product.code})}">Cập nhât</a</td> -->
-					                  	</tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+			               <form th:action="@{/update-product}" th:method="post" th:object="${product}">
+			                <div class="card-body">       
+			                  <div class="form-group">
+			                    <label for="exampleInputEmail1">Name</label>
+			                    <input type="text" th:field="*{name}" class="form-control">
+			                  </div>
+			                  
+			                  <div class="form-group">
+			                    <label for="exampleInputEmail1">Code</label>
+			                    <input type="text" th:field="*{code}" class="form-control">
+			                  </div>
+			                  
+			                  <div class="form-group">
+			                    <label for="exampleInputEmail1">Description</label>
+			                    <input type="text" th:field="*{description}" class="form-control">
+			                  </div>
+			                  
+			                  <div class="form-group">
+			                    <label for="exampleInputEmail1">Price</label>
+			                    <input type="text" th:field="*{price}" class="form-control">
+			                  </div>
+			                  
+			                  <div class="form-group">
+			                    <label for="exampleInputEmail1">Sale Price</label>
+			                    <input type="text" th:field="*{sale_price}" class="form-control">
+			                  </div>
+			                  
+			                </div>
+			                <!-- /.card-body -->
+			
+			                <div class="card-footer">
+			                  <button type="submit" class="btn btn-primary">Submit</button>
+			                </div>
+			              </form>
+                        
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">

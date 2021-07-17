@@ -10,6 +10,8 @@ public class ProductData {
 	
 	private String code;
 	
+	private String description;
+	
 	private String photo;
 	
 	private Float price;
@@ -22,6 +24,7 @@ public class ProductData {
 		data.id = enetity.getId();
 		data.name = enetity.getName();
 		data.code = enetity.getCode();
+		data.description = enetity.getDescription();
 		data.price = enetity.getPrice();
 		data.sale_price = enetity.getSale_price();
 		
@@ -50,6 +53,14 @@ public class ProductData {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public String getPhoto() {

@@ -121,6 +121,7 @@ public class Product {
 	public void updateFormData(ProductData data) {
 		this.name = data.getName();
 		this.code = data.getCode();
+		this.description = data.getDescription();
 		this.price = data.getPrice();
 		this.sale_price = data.getSale_price();
 	}

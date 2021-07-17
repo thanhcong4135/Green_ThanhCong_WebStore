@@ -28,7 +28,7 @@ public class ProductController {
 		
 		model.addAttribute("listProducts", listProducts);
 		
-		return "product-list";
+		return "product_list";
 	}
 
 	@GetMapping("/new-product")
@@ -91,7 +91,7 @@ public class ProductController {
 		
 		model.addAttribute("product", product);
 		
-		return "update-product";
+		return "update_product";
 		
 	}
 
