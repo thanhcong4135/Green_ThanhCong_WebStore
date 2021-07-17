@@ -3,6 +3,7 @@ package com.green.webstoreadmin.products;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +16,7 @@ import com.green.webstoremodels.entities.Category;
 import com.green.webstoremodels.entities.Product;
 import com.green.webstoremodels.formdata.ProductData;
 
+@Controller
 public class ProductController {
 	@Autowired
 	private ProductService productService;
@@ -89,7 +91,7 @@ public class ProductController {
 		
 		model.addAttribute("product", product);
 		
-		return "update_product";
+		return "update-product";
 		
 	}
 
