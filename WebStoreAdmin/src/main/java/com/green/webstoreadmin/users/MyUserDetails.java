@@ -3,11 +3,13 @@ package com.green.webstoreadmin.users;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.green.webstoremodels.entities.Role;
 import com.green.webstoremodels.entities.User;
 
 public class MyUserDetails implements UserDetails{
@@ -26,7 +28,16 @@ public class MyUserDetails implements UserDetails{
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-		authorities.add(new SimpleGrantedAuthority("ADMIN"));
+		Set<Role> roles = user.getRoles();
+		
+		String message = "user : " + user.getUsername() + "has role : ";
+		String messageRoles= "";
+		for(Role role : roles) {
+			messageRoles = messageRoles + "" + role.getName();
+			authorities.add(new SimpleGrantedAuthority(role.getName()));
+		}
+		
+		System.out.println(message + messageRoles);
 		
 		return authorities;
 	}

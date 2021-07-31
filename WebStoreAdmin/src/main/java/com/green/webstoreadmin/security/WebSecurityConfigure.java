@@ -1,5 +1,6 @@
 package com.green.webstoreadmin.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -10,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.green.webstoreadmin.handler.OnAuthenticationFailureHandler;
+import com.green.webstoreadmin.handler.OnAuthenticationSuccessHandler;
 import com.green.webstoreadmin.helper.PasswordManager;
 import com.green.webstoreadmin.users.UserDetailsServiceImpl;
 
@@ -22,9 +25,15 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 //		String password = PasswordManager.getBCrypPassword("123456");
 //		
 //		auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-//		.withUser("admin").password(password).roles("ADMIN");
+//		.withUser("thanhcong4135@gmail.com").password(password).roles("ADMIN");
 //		
 //	}
+	
+	@Autowired
+	private OnAuthenticationSuccessHandler successHandler;
+	
+	@Autowired
+	private OnAuthenticationFailureHandler failureHandler;
 	
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
@@ -36,6 +45,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 		return new UserDetailsServiceImpl();
 	}
 	
+	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 		authProvider.setPasswordEncoder(passwordEncoder());
@@ -46,15 +56,21 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.authenticationProvider(authenticationProvider());
-		
-		
+		auth.authenticationProvider(authenticationProvider());	
 	}
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/").permitAll()
+		http.authorizeRequests()
+		.antMatchers("/" ,"/users-list" ,"/products" ,"/assets/**","/css/**", "/js/**").permitAll()
+		.antMatchers("/users", "/roles").hasAnyAuthority("ADMIN")
 		.anyRequest().authenticated()
-		.and().formLogin().permitAll();
+		.and().formLogin().loginPage("/login").permitAll()
+		.usernameParameter("username")
+		.passwordParameter("password")
+		.loginProcessingUrl("/dologin")
+		.successHandler(successHandler)
+		.failureHandler(failureHandler)
+		.and().logout().permitAll();
 	}
 }

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>List Product</title>
+        <title>List User</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -111,7 +111,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">List Product</h1>
+                        <h1 class="mt-4">List User</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active"></li>
                         </ol>
@@ -121,48 +121,47 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                 Product DataTable
+                                User DataTable
+                                <button class="btn btn-primary" th:action="@{/add-user}">Add User</button>
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
-                                            <th>Name</th>
-						                    <th>Code</th>
-						                    <th>Description</th>
-						                    <th>Price</th>
-						                    <th>Sale Price</th>
+                                            <th>Id</th>
+						                    <th>Enabled</th>
+						                    <th>Full name</th>
+						                    <th>User name</th>
 						                    <th>Update</th>
 						                    <th>Delete</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>Name</th>
-						                    <th>Code</th>
-						                    <th>Description</th>
-						                    <th>Price</th>
-						                    <th>Sale Price</th>
+                                            <th>Id</th>
+						                    <th>Enabled</th>
+						                    <th>Full name</th>
+						                    <th>User name</th>
 						                    <th>Update</th>
 						                    <th>Delete</th>
+						                    
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr  th:each="product : ${listProducts}">
-					                    <td th:text="${product.name}">Internet Explorer 4.0</td>
-					                    <td th:text="${product.code}">Win 95+</td>
-					                    <td th:text="${product.description}"> 4</td>
-					                    <td th:text="${product.price}">X</td>
-					                    <td th:text="${product.sale_price}">X</td>
+                                        <tr  th:each="user : ${listUsers}">
+					                    <td th:text="${user.id}">Internet Explorer 4.0</td>
+					                    <td th:text="${user.enabled}">Win 95+</td>
+					                    <td th:text="${user.full_name}"> 4</td>
+					                    <td th:text="${user.username}">X</td>
 					                    <td>
-					                    	<a th:href="@{/edit-product/id={code}(code=${product.code})}">Update</a>
+					                    	<a th:href="@{/edit-user/{id}(id=${user.id})}">Update</a>
 					                    </td>
 					                    <td>
-					                    	<a th:href="@{/delete-product/{id}(id=${product.id})}">Delete</a>
+					                    	<a th:href="@{/delete-user/{id}(id=${user.id})}">Delete</a>
 					                    </td>
-					                    <!-- <td><a th:href="@{/edit/{code}(code=${product.code})}">Cập nhât</a</td> -->
 					                  	</tr>
                                     </tbody>
+                                    
                                 </table>
                             </div>
                         </div>

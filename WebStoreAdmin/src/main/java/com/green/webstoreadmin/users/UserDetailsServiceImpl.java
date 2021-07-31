@@ -15,10 +15,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.getUserByUsername(username);
+		User user = userRepository.getByUsername(username);
 		
-		String password = PasswordManager.getBCrypPassword("123456");
-		System.out.println(password);
+//		String password = PasswordManager.getBCrypPassword("123456");
+//		System.out.println(password);
 		
 		if(user == null) {
 			throw new UsernameNotFoundException("Ten dang nhap khong ton tai");

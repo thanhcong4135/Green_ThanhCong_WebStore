@@ -25,7 +25,7 @@ public class User {
 	private String username;
 
 	@Column(name = "full_name")
-	private String fullName;
+	private String full_name;
 	private String password;
 	private Boolean enabled;
 	
@@ -58,12 +58,12 @@ public class User {
 		this.username = username;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getFull_name() {
+		return full_name;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setFull_name(String full_name) {
+		this.full_name = full_name;
 	}
 
 	public String getPassword() {

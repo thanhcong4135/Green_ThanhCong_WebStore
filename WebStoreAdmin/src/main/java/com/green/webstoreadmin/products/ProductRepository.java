@@ -10,7 +10,6 @@ import com.green.webstoremodels.entities.Product;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer>{
 
-	//JPA HQL
 	@Query("SELECT p FROM Product p WHERE p.code = :code")
 	public Product getByCode(@Param("code") String code);
 }

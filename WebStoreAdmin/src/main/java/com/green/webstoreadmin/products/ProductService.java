@@ -26,7 +26,7 @@ public class ProductService {
 		repository.save(product);
 	}
 	
-	public void deleteProdcutByCode(String code) {
+	public void deleteProductByCode(String code) {
 		//Viet query///
 	}
 	

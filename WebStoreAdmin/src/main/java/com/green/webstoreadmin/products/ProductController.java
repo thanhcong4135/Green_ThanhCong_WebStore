@@ -78,12 +78,10 @@ public class ProductController {
 		productService.deleteProdcutById(id);
 		
 		return "redirect:/products";
-		//return "product_list";
 	}
 	
-	@RequestMapping("/edit-product/{code}")
+	@RequestMapping("/edit-product/id={code}")
 	public String updateProduct(@PathVariable(name = "code") String code, Model model) {
-		//ModelAndView modelAndView = new ModelAndView("update_product");
 		
 		Product entity = productService.getProductByCode(code);
 		
@@ -91,7 +89,7 @@ public class ProductController {
 		
 		model.addAttribute("product", product);
 		
-		return "update_product";
+		return "edit_product";
 		
 	}
 
