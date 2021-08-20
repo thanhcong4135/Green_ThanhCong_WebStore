@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "categories")
@@ -106,4 +107,14 @@ public class Category {
 	public void setSubCategory(Set<Category> subCategory) {
 		this.subCategory = subCategory;
 	}
+	
+	@Transient
+	public String getParentName() {
+		if(this.parent == null) {
+			return "null";
+		}
+		return this.parent.getName();
+		
+	}
+	
 }

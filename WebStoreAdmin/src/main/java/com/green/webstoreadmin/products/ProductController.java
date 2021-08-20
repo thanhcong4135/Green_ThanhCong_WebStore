@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.green.webstoreadmin.categories.CategoryService;
 import com.green.webstoreadmin.products.ProductService;
 import com.green.webstoremodels.entities.Category;
 import com.green.webstoremodels.entities.Product;
@@ -20,6 +21,9 @@ import com.green.webstoremodels.formdata.ProductData;
 public class ProductController {
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	@GetMapping("/products")
 	public String showProducts(Model model) {
@@ -33,21 +37,18 @@ public class ProductController {
 
 	@GetMapping("/new-product")
 	public String showNewProduct(Model model) {
-	
+		List<Category> listCategories = categoryService.getAllCategories();
 		Product product = new Product();
-
+		
 		model.addAttribute("product", product);
 		
+		model.addAttribute("listCategories", listCategories);
 		return "new_product";
 	}
 	
 	@RequestMapping(value = "/save-product", method = RequestMethod.POST)
 	public String saveProduct(@ModelAttribute("product") Product product) {
-		
-		Category category = new Category();
-		
-		category.setId(1);
-		product.setCategory(category);
+
 		product.setEnabled(true);
 		
 		productService.saveProduct(product);

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragment :: page_head('Green Furinture', 'none')" />
+<body>
+	<header id="home" class="welcome-hero">
+		<div th:replace="fragment :: top-area"></div>
+	</header>
+
+	<section id="login" class="populer-padding">
+		<div class="container">
+			<div class="row">
+				<div
+					class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 md-padding">
+					<br>
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target="#navbar-menu">
+							<i class="fa fa-bars"></i>
+						</button>
+						<a class="navbar-brand" th:href="@{/login}">Green furn. Login</a>
+
+					</div>
+
+					<div th:if="${param.logout}" class="p-invalid">
+						* you have been logged out.
+					</div>
+					<div th:if="${param.error}" class="p-invalid">
+						* invalid email and password.
+					</div>
+					<form class="signin" action="index.php" method="post">
+						<input type="email" name="email" value="" placeholder="E-mail"
+							required="required" class="form-control" /> <br> <input
+							type="password" name="password" value="" placeholder="Password"
+							required="required" class="form-control" /> <br>
+
+						<button type="submit" class="btn btn-primary">Sign In</button>
+
+						<a href="#forgin-password" data-action="Forgot-Password"
+							class="xs-margin">Password recovery ></a> <br> <br>
+
+						<p class="p-small">If you already have an account with us,
+							please login.</p>
+
+						<hr class="offset-xs">
+
+						<button th:href="@{/facebook}" class="btn btn-facebook">
+							<i class="ion-social-facebook" style="margin: 8px"></i>Login with
+							Facebook
+						</button>
+
+						<hr class="offset-xs">
+
+						<span class="p-small">Don't have an account? Create one
+							now!</span> <a th:href="@{/signup}">Registration ></a>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="assets/js/jquery-latest.min.js"></script>
+
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/core.js"></script>
+	<script src="assets/js/catalog.js"></script>
+
+	<script type="text/javascript" src="assets/js/jquery-ui-1.11.4.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.ui.touch-punch.js"></script>
+</body>
+</html>
