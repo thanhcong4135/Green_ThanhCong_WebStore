@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class Customer {
 
 	@Id
-	@Column(name = "ID", unique = true, nullable = false)
+	@Column(name = "customerId", unique = true, nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer customerId;
 

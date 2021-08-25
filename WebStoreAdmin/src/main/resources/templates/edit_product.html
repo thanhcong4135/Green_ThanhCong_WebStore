@@ -52,20 +52,19 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Users
                             </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                #
-                            </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                #
-                            </a>
+                            <a class="nav-link" th:href="@{/categories-list}">
+                            <div class="sb-nav-link-icon">
+                            	<i class="fas fa-table"></i>
+                            </div> Categories
+                        	</a>
+	                        <a class="nav-link" href="#">
+	                            <div class="sb-nav-link-icon"><i class="fas fa-table">
+	                            	</i>
+	                            </div> Customer
+	                        </a>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
+                    
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -102,6 +101,14 @@
 			                  	<b>Sale Price</b>
 			                    <input type="text" th:field="*{sale_price}" class="form-control">
 			                  </div>
+			                  <div class="form-group">
+								<b>Category &emsp;</b> 
+								<select th:field="*{category}">
+									<th:block th:each="cat : ${listCategories}">
+										<option th:value="${cat.id}">[[${cat.name}]]</option>
+									</th:block>
+								</select>
+							</div>
 			                  
 			                </div>
 			                <!-- /.card-body -->
@@ -117,11 +124,7 @@
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            
                         </div>
                     </div>
                 </footer>

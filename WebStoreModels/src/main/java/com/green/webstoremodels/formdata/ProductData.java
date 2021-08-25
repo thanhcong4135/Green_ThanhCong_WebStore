@@ -1,5 +1,6 @@
 package com.green.webstoremodels.formdata;
 
+import com.green.webstoremodels.entities.Category;
 import com.green.webstoremodels.entities.Product;
 
 public class ProductData {
@@ -17,16 +18,19 @@ public class ProductData {
 	private Float price;
 	
 	private Float sale_price;
+	
+	private Category category;
 
-	public static ProductData copyValueFormEntity(Product enetity) {
+	public static ProductData copyValueFormEntity(Product entity) {
 		ProductData data = new ProductData();
 		
-		data.id = enetity.getId();
-		data.name = enetity.getName();
-		data.code = enetity.getCode();
-		data.description = enetity.getDescription();
-		data.price = enetity.getPrice();
-		data.sale_price = enetity.getSale_price();
+		data.id = entity.getId();
+		data.name = entity.getName();
+		data.code = entity.getCode();
+		data.description = entity.getDescription();
+		data.price = entity.getPrice();
+		data.sale_price = entity.getSale_price();
+		data.category = entity.getCategory();
 		
 		return data;
 	}
@@ -86,4 +90,13 @@ public class ProductData {
 	public void setSale_price(Float sale_price) {
 		this.sale_price = sale_price;
 	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	
 }

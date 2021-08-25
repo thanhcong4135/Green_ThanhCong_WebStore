@@ -52,20 +52,17 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Users
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" th:href="@{/categories-list}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                #
+                                Categories
                             </a>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                #
+                                Customer
                             </a>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
+                    
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -88,9 +85,11 @@
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
+                                            <th>Photo</th>                                        	
                                             <th>Name</th>
 						                    <th>Code</th>
 						                    <th>Description</th>
+						                    <th>Category</th>
 						                    <th>Price</th>
 						                    <th>Sale Price</th>
 						                    <th>Option</th>
@@ -98,17 +97,19 @@
                                         </tr>
                                     </thead>
                                     
-                                    <tbody>
+                                  <tbody>
                                         <tr  th:each="product : ${listProducts}">
+                                        <td th:text="${product.photo}"></td>
 					                    <td th:text="${product.name}"></td>
 					                    <td th:text="${product.code}"></td>
 					                    <td th:text="${product.description}"></td>
+					                    <td th:text="${product.category.name}"></td>
 					                    <td th:text="${product.price}"></td>
 					                    <td th:text="${product.sale_price}"></td>
 					                    <td>
-					                    	<a th:href="@{/edit-product/id={code}(code=${product.code})}">Update</a>&emsp;
+					                    	<a th:href="@{/edit-product/code={code}(code=${product.code})}">Update</a>&emsp;
 					                    	<a th:href="@{/delete-product/{id}(id=${product.id})}">Delete</a>&emsp;
-					                    	<a th:href="@{/detail-product/{id}(id=${product.id})}">Details</a>
+					                    	<a th:href="@{/detail-product/code={code}(code=${product.code})}">Details</a>
 					                    </td>
 					                    
 					                    <!-- <td><a th:href="@{/edit/{code}(code=${product.code})}">Cập nhât</a</td> -->
@@ -123,11 +124,7 @@
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            
                         </div>
                     </div>
                 </footer>

@@ -81,16 +81,35 @@ public class ProductController {
 		return "redirect:/products";
 	}
 	
-	@RequestMapping("/edit-product/id={code}")
+	@RequestMapping("/edit-product/code={code}")
 	public String updateProduct(@PathVariable(name = "code") String code, Model model) {
+		
+		List<Category> listCategories = categoryService.getAllCategories();
 		
 		Product entity = productService.getProductByCode(code);
 		
 		ProductData product = ProductData.copyValueFormEntity(entity);
 		
 		model.addAttribute("product", product);
+		model.addAttribute("listCategories", listCategories);
 		
 		return "edit_product";
+		
+	}
+	
+	@RequestMapping("/detail-product/code={code}")
+	public String detailProduct(@PathVariable(name = "code") String code, Model model) {
+		
+		List<Category> listCategories = categoryService.getAllCategories();
+		
+		Product entity = productService.getProductByCode(code);
+		
+		ProductData product = ProductData.copyValueFormEntity(entity);
+		
+		model.addAttribute("product", product);
+		model.addAttribute("listCategories", listCategories);
+		
+		return "detail_product";
 		
 	}
 

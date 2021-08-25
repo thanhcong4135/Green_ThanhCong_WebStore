@@ -58,14 +58,11 @@
                             </a>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                #
+                                Customer
                             </a>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
+                    
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -81,8 +78,8 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Categories DataTable
-                                <button class="btn btn-primary" th:action="@{/add-user}">Add Category</button>
+                                Categories DataTable &emsp;
+                                <b><a th:href="@{/addnew-category}">ADD NEW CATEGORY</a></b>
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -92,8 +89,8 @@
 						                    <th>Code</th>
 						                    <th>Description</th>
 						                    <th>Name</th>
-						                    <th>Photo</th>
-						                    <th>Parent id</th>
+						                    <th>Parent name</th>
+						                    <th>Option</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -102,9 +99,8 @@
 						                    <th>Code</th>
 						                    <th>Description</th>
 						                    <th>Name</th>
-						                    <th>Photo</th>
 						                    <th>Parent name</th>
-						                    
+						                    <th>Option</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -113,13 +109,11 @@
 					                    <td th:text="${category.code}"></td>
 					                    <td th:text="${category.description}"></td>
 					                    <td th:text="${category.name}"></td>
-					                    <td th:text="${category.photo}"></td>
 					                    <td th:text="${category.parentName}"></td>
 					                    <td>
 					                    	<a th:href="@{/edit-category/{id}(id=${category.id})}">Update</a>
-					                    </td>
-					                    <td>
-					                    	<a th:href="@{/delete-category/{id}(id=${category.id})}">Delete</a>
+					                 		&emsp;
+					                    	<!-- <a th:href="@{/delete-category/{id}(id=${category.id})}">Delete</a> -->
 					                    </td>
 					                  	</tr>
                                     </tbody>
@@ -133,11 +127,7 @@
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
                             <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                            
                         </div>
                     </div>
                 </footer>
