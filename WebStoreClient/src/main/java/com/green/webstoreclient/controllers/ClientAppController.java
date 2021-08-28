@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -59,7 +60,7 @@ public class ClientAppController {
 		
 		@RequestMapping(value = "/register", method = RequestMethod.POST)
 		public String checkCustomerInfo(@Valid CustomerForm customerForm, BindingResult bindingResult, RedirectAttributes redirectAttributes)   {
-		
+			
 			boolean error = false;
 			
 			Customer customer = customerService.getCustomerByPhone(customerForm.getPhoneNumber());
@@ -84,6 +85,9 @@ public class ClientAppController {
 			if (bindingResult.hasErrors()) {
 				return "register";
 			}
+			
+			
+			
 			//register new account;
 			customerService.saveCustomer(customerForm.getCustomer());
 	

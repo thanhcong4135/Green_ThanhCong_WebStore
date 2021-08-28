@@ -2011,6 +2011,18 @@ img {
 }
 
 .karl-checkout-btn {
+    width: 100%;
+    height: 60px;
+    background-color: #ff084e;
+    border-radius: 0;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 60px;
+    padding: 0;
+}
+
+.karl-login-btn {
     width: 30%;
     height: 60px;
     background-color: #ff084e;

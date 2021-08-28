@@ -222,8 +222,7 @@
                             
                             <form class="regiser" th:object="${customerForm}" th:action="@{/register}" method="post">
                             	
-                                <div class="col-12 mb-4">
-                                    <label for="email_address">Email Address <span>*</span></label>
+                                <div class="col-12 mb-3">
                                     <input type="email" name="email" class="form-control" placeholder="Email" required="required" />
                                     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</span>
 									<span th:if="${error_duplicate_email}">[[${error_duplicate_email}]]</span>
@@ -231,19 +230,16 @@
                                 </div>
 
                                 <div class="col-12 mb-3">
-                                    <label for="company">Password</label>
                                     <input type="password" name="password" class="form-control"  placeholder="Password" required="required" />
                                     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</span>
 									<br>
                                 </div>
                                 
                                 <div class="col-12 mb-3">
-                                    <label for="company">Password confirm</label>
                                     <input type="password" name="password-confirm" class="form-control"  placeholder="Confirm password" required="required" />
                                 </div>
                                 
                                 <div class="col-12 mb-3">
-                                    <label for="company">Full name</label>
                                     <input type="text" name="name" class="form-control"  placeholder="Type your name" required="required" />
                                     <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span>
                                 </div>
@@ -256,7 +252,7 @@
                                 </div>
                                 
                                 <div class="btnlogin" th:href="@{/facebook}">
-                                    <button type="submit" class="btn karl-checkout-btn" >SIGN IN</button>
+                                    <button type="submit" class="btn karl-login-btn" >SIGN IN</button>
                                 </div>
                                 
                                 <div class="createaccount">
