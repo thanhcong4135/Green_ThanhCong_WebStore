@@ -31,7 +31,10 @@ public class OrderDetail implements Serializable{
 	private String productName;
 	
 	@Column(name = "PRICE")
-	private Float price;
+	private Double price;
+	
+	@Column(name = "quantity")
+	private Integer quantity;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name= "order_id")
@@ -53,11 +56,11 @@ public class OrderDetail implements Serializable{
 		this.productName = productName;
 	}
 
-	public Float getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Float price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -67,6 +70,14 @@ public class OrderDetail implements Serializable{
 
 	public void setOrder(Order order) {
 		this.order = order;
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 	
 	

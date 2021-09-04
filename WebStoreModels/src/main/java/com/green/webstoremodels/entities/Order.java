@@ -37,7 +37,10 @@ public class Order implements Serializable {
 	private String address;
 	
 	@Column(name = "TOTAL_PRICE")
-	private Float totalPrice;
+	private Double totalPrice;
+	
+	@Column(name = "orderCode")
+	private String orderCode;
 	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "STATUS")
@@ -70,11 +73,11 @@ public class Order implements Serializable {
 		this.address = address;
 	}
 
-	public Float getTotalPrice() {
+	public Double getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(Float totalPrice) {
+	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
@@ -101,4 +104,14 @@ public class Order implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public String getOrderCode() {
+		return orderCode;
+	}
+
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
+	}
+	
+	
 }

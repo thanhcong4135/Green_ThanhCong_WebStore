@@ -132,7 +132,7 @@
                                             </li>
                                             <li class="total">
                                                 <span class="pull-right">Total: $20.00</span>
-                                                <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
+                                                <a th:href="@{/shopcart}" class="btn btn-sm btn-cart">Cart</a>
                                                 <a href="checkout-1.html" class="btn btn-sm btn-checkout">Checkout</a>
                                             </li>
                                         </ul>
@@ -173,7 +173,7 @@
                                                 <a class="nav-link dropdown-toggle" href="#" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
                                                 <div class="dropdown-menu" aria-labelledby="karlDropdown">
                                                     <a class="dropdown-item" th:href="@{/}">Home</a>
-                                                    <a class="dropdown-item" href="shop.html">Shop</a>
+                                                    <a class="dropdown-item" th:href="@{/allproducts}">Shop</a>
                                                     <a class="dropdown-item" href="product-details.html">Product Details</a>
                                                     <a class="dropdown-item" href="cart.html">Cart</a>
                                                     <a class="dropdown-item" href="checkout.html">Checkout</a>
