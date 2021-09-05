@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	
-	$(".minus").on("click", function(event) {
+	$(".qty-minus").on("click", function(event) {
 		event.preventDefault();
 		
 		productCode = $(this).attr("pid");
@@ -12,7 +12,7 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".plus").on("click", function(event) {
+	$(".qty-plus").on("click", function(event) {
 		event.preventDefault();
 		
 		productCode = $(this).attr("pid");

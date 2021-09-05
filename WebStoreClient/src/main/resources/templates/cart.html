@@ -246,7 +246,7 @@
                                             <h6>[[${cartLine.product.name}]]</h6>
                                         </td>
                                         <td class="price"><span th:id="'itemPrice' + ${cartLine.product.code}" class="amount">[[${cartLine.unitPrice}]]</span></td>
-                                        <td class="qty">
+                                        <td class="qtys">
                                             <div class="quantity">
                                                 <!-- <input id="minus" type="button" value="-" class="qty-minus" th:pid="${cartLine.product.code}">
                                                 <input type="number" class="qty-text" id="qty" step="1" min="1" max="99" name="quantity" value="1">
@@ -258,7 +258,7 @@
                                                 
                                                 <span class="qty-minus" id="minus" th:pid="${cartLine.product.code}"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                                 <input type="hidden" th:name="|cartLines[${varStatus.index}].id|" th:value="${cartLine.product.id}">
-                                                <input type="text" th:name="|cartLines[${varStatus.index}].quantity|" th:value="${cartLine.quantity}" class="qty-text" th:id="'quantity' + ${cartLine.product.code}">
+                                                <input type="text" th:name="|cartLines[${varStatus.index}].quantity|" th:value="${cartLine.quantity}" class="qty" th:id="'quantity' + ${cartLine.product.code}">
                                                 <span class="qty-plus" id="plus" th:pid="${cartLine.product.code}"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                                 
                                                 
@@ -276,7 +276,7 @@
                                 <a th:href="@{/allproducts}">Continue shopping</a>
                             </div>
                             <div class="update-checkout w-50 text-right">
-                                <a href="#">clear cart</a>
+                                <a th:href="@{/clearcart}">clear cart</a>
                                 <a href="#">Update cart</a>
                             </div>
                         </div>

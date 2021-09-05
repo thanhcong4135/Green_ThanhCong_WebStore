@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -51,5 +52,22 @@ public class CartController {
 		
 		return "cart";
 	}
+	
+	@GetMapping("/checkout")
+	public String checkoutShoppingCart(HttpServletRequest request, Model model) {
+		
+		CartInfo cartInfo = CartSessionUtil.getCartInSession(request);
+		model.addAttribute("orderCode", orderService.saveOrder(cartInfo));
+		
+		return "checkout";
+	}
+	
+	@GetMapping("/clearcart")
+	public String clearCart(HttpServletRequest request) {
+		CartSessionUtil.removeCartInSession(request);
+		
+		return "redirect:/shopping_cart";
+	}
+	
 	
 }

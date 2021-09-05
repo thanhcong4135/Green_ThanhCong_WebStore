@@ -21,4 +21,9 @@ public class CartSessionUtil {
 	public static void removeCartInSession(HttpServletRequest request) {
 		request.getSession().removeAttribute(SHOPCART);
 	}
+	
+	public static void removeAll(HttpServletRequest request) {
+		CartInfo cartInfo = (CartInfo) request.getSession().getAttribute(SHOPCART);
+		
+	}
 }

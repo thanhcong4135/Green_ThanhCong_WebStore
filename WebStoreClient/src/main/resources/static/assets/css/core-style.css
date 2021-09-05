@@ -1888,7 +1888,7 @@ img {
     font-size: 10px;
 }
 
-.cart-table .qty-text {
+.cart-table .qty {
     background-color: #f6f6f6;
     border: medium none;
     display: inline-block;
