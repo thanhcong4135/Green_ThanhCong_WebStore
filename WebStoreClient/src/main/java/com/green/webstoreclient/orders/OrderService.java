@@ -25,7 +25,7 @@ public class OrderService {
 	@Autowired
 	OrderRepository orderRepository;
 	
-	public String saveOrder(CartInfo cartInfo) {
+	public String saveOrder(CartInfo cartInfo, String address) {
 		
 		Order order = new Order();
 		
@@ -62,10 +62,11 @@ public class OrderService {
 		
 		order.setOrderCode(System.currentTimeMillis() + "");
 		
+		order.setAddress(address);
+		
 		orderRepository.save(order);
 		
 		return order.getOrderCode();
 	}
 	
-
 }

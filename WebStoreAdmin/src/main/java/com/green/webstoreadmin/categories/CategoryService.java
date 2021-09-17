@@ -17,7 +17,7 @@ public class CategoryService {
 		return repository.findAll();
 	}
 	
-	public Category getCategoryById(String id) {
+	public Category getCategoryById(int id) {
 		return repository.getById(id);
 	}
 	

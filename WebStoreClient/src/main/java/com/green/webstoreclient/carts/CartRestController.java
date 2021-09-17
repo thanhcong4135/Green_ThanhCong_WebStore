@@ -18,10 +18,10 @@ public class CartRestController {
 	@PostMapping("/restapi/shopcart_update/{code}/{qty}")
 	public String shopcartUpdateQuantity(HttpServletRequest request, @PathVariable(value = "code") String code, @PathVariable(value = "qty") Integer quantity) {
 		
-		System.out.println("shopcartUpdateQuantity: " + code + " --> " + quantity);
-		
 		CartInfo cartInfo = CartSessionUtil.getCartInSession(request);
 		
+		System.out.println("shopcartUpdateQuantity: " + code + " --> " + quantity);
+
 		boolean productFound = false;
 		
 		for (CartLineInfo cartLineInfo : cartInfo.getCartLines()) {

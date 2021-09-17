@@ -13,7 +13,7 @@ import com.green.webstoremodels.entities.Product;
 
 @Service
 public class ProductService {
-	public static int PAGE_SIZE = 6;
+	public static int PAGE_SIZE = 9;
 	
 	@Autowired
 	private ProductRepository repository;

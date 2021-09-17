@@ -33,59 +33,11 @@
         <div class="nav-side-menu">
             <div class="menu-list">
                 <h6>Categories</h6>
-                <ul id="menu-content" class="menu-content collapse out">
+                <ul id="menu-content" class="menu-content collapse out" th:each="category: ${categories}">
                     <!-- Single Item -->
                     <li data-toggle="collapse" data-target="#women" class="collapsed active">
-                        <a href="#">Woman wear <span class="arrow"></span></a>
+                        <a href="#">[[${category.name}]]<span class="arrow"></span></a>
                         <ul class="sub-menu collapse" id="women">
-                            <li><a href="#">Midi Dresses</a></li>
-                            <li><a href="#">Maxi Dresses</a></li>
-                            <li><a href="#">Prom Dresses</a></li>
-                            <li><a href="#">Little Black Dresses</a></li>
-                            <li><a href="#">Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#man" class="collapsed">
-                        <a href="#">Man Wear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="man">
-                            <li><a href="#">Man Dresses</a></li>
-                            <li><a href="#">Man Black Dresses</a></li>
-                            <li><a href="#">Man Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#kids" class="collapsed">
-                        <a href="#">Children <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="kids">
-                            <li><a href="#">Children Dresses</a></li>
-                            <li><a href="#">Mini Dresses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#bags" class="collapsed">
-                        <a href="#">Bags &amp; Purses <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="bags">
-                            <li><a href="#">Bags</a></li>
-                            <li><a href="#">Purses</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#eyewear" class="collapsed">
-                        <a href="#">Eyewear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="eyewear">
-                            <li><a href="#">Eyewear Style 1</a></li>
-                            <li><a href="#">Eyewear Style 2</a></li>
-                            <li><a href="#">Eyewear Style 3</a></li>
-                        </ul>
-                    </li>
-                    <!-- Single Item -->
-                    <li data-toggle="collapse" data-target="#footwear" class="collapsed">
-                        <a href="#">Footwear <span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="footwear">
-                            <li><a href="#">Footwear 1</a></li>
-                            <li><a href="#">Footwear 2</a></li>
-                            <li><a href="#">Footwear 3</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -96,7 +48,7 @@
     <div id="wrapper">
 
         <!-- ****** Header Area Start ****** -->
-        <header class="header_area bg-img background-overlay-white" style="background-image: url(img/bg-img/bg-1.jpg);">
+        <header class="header_area bg-img background-overlay-white" style="background-image: url(assets/img/bg-img/bg-1.jpg);">
             <!-- Top Header Area Start -->
             <div class="top_header_area">
                 <div class="container h-100">
@@ -106,35 +58,28 @@
                             <div class="top_single_area d-flex align-items-center">
                                 <!-- Logo Area -->
                                 <div class="top_logo">
-                                    <a href="#"><img th:src="@{img/core-img/logo.png}" alt=""></a>
+                                    <a th:href="@{/home}"><img th:src="@{assets/img/core-img/logo.png}" alt=""></a>
                                 </div>
                                 <!-- Cart & Menu Area -->
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
                                     <!-- Cart Area -->
-                                    <div class="cart">
-                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">2</span> <i class="ti-bag"></i> Your Bag $20</a>
+                                    <div class="cart" >
+                                    	<!-- th:action="@{/mini_cart}" th:method="post" -->
+                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">[[${cartSize}]]</span> <i class="ti-bag"></i> Your Bag $20</a>
                                         <!-- Cart List Area Start -->
-                                        <ul class="cart-list">
-                                            <li>
-                                                <a href="#" class="image"><img th:src="@{img/product-img/product-10.jpg}" class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
-                                                </div>
-                                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="image"><img th:src="@{img/product-img/product-11.jpg}" class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
+                                        <ul class="cart-list" >
+                                            <li th:each="cartLine : ${cartInfo.cartLines}">
+                                                <a href="#" class="image"><img src="assets/img/product-img/product-10.jpg" class="cart-thumb" alt=""></a>
+                                                <div class="cart-item-desc" th:if="${cartInfo.cartLines}">
+                                                    <h6><a href="#">[[${cartLine.product.name}]]</a></h6>
+                                                    <p>[[${cartLine.quantity}]] - <span class="price">[[${cartLine.unitPrice}]]</span></p>
                                                 </div>
                                                 <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
                                             </li>
                                             <li class="total">
-                                                <span class="pull-right">Total: $20.00</span>
-                                                <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
-                                                <a href="checkout-1.html" class="btn btn-sm btn-checkout">Checkout</a>
+                                                <span class="pull-right">Total: [[${cartInfo.totalCartInfo}]]</span>
+                                                <a th:href="@{/shopping_cart}" class="btn btn-sm btn-cart">Cart</a>
+                                                <a th:href="@{/checkout}" class="btn btn-sm btn-checkout">Checkout</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -181,7 +126,6 @@
                                                 </div>
                                             </li>
                                             <li class="nav-item"><a class="nav-link" th:href="@{/allproducts}">All product</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#"><span class="karl-level">hot</span> Shoes</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
                                             <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/profile}" sec:authentication="name">Name</a></li>
                                             <li sec:authorize="isAuthenticated()"><a class="nav-link" onclick="document.getElementById('formlogout').submit()">Logout</a>
@@ -195,34 +139,14 @@
                             </div>
                             <!-- Help Line -->
                             <div class="help-line">
-                                <a th:href="@{/login}"><i class="ti-user"></i> Login</a>
+                                <a th:href="@{/login}" sec:authorize="isAnonymous()"><i class="ti-user"></i> Login</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-        <!-- ****** Header Area End ****** -->
 
-        <section class="top-discount-area d-md-flex align-items-center">
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>Free Shipping &amp; Returns</h5>
-                <h6><a href="#">BUY NOW</a></h6>
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>20% Discount for all dresses</h5>
-                <h6>USE CODE: Colorlib</h6>
-            </div>
-            <!-- Single Discount Area -->
-            <div class="single-discount-area">
-                <h5>20% Discount for students</h5>
-                <h6>USE CODE: Colorlib</h6>
-            </div>
-        </section>
-
-        <!-- ****** Quick View Modal Area Start ****** -->
         <th:block th:each="product : ${products}">
         <div class="modal fade" th:id="@{'quickview' + ${product.id}}"  tabindex="-1" role="dialog" aria-labelledby="quickview" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -263,7 +187,7 @@
 
                                                 <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i class="fa fa-plus" aria-hidden="true"></i></span>
                                             </div>
-                                            <button type="submit" name="addtocart" value="5" class="cart-submit">Add to cart</button>
+                                            <a type="button" th:href="|/addtocart?code=${product.code}|" class="add-to-cart-btn">ADD TO CART</a>
                                             <!-- Wishlist -->
                                             <div class="modal_pro_wishlist">
                                                 <a href="wishlist.html" target="_blank"><i class="ti-heart"></i></a>
@@ -445,9 +369,11 @@
                             </div>
                         </div>
                     </div>
-
+					
                     <div class="col-12 col-md-8 col-lg-9" >
+                    <h5><span>Showing products from<b> [[${startCount}]]</b> to <b>[[${endCount}]]</b></span></h5><br>
                         <div class="shop_grid_product_area" >
+                        
                             <div class="row">
 
                                 <!-- Single gallery Item -->
@@ -472,25 +398,26 @@
                             </div>
                         </div>
 						
-						<span>Showing products from [[${startCount}]] to [[${endCount}]]</span>
-						<div>
-					<a th:if="${currentPage > 1}" th:href="@{/allproducts/1}">Go First Page </a>
-					<span th:unless="${currentPage > 1}">Go First Page</span>
+						
+				<div>
+					<a th:if="${currentPage > 1}" th:href="@{/allproducts/1}"><b>Go First Page</b></a>
+					&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+					<span th:unless="${currentPage > 1}"><b>Go First Page</b></span>
 					
-					<a th:if="${currentPage > 1}" th:href="@{'/allproducts/' + ${currentPage - 1}}">Previous Page</a>
-					<span th:unless="${currentPage > 1}">Previous Page </span>
+					<a th:if="${currentPage > 1}" th:href="@{'/allproducts/' + ${currentPage - 1}}"><b>||  Previous  ||</b></a>
+					<span th:unless="${currentPage > 1}"><b>||  Previous  ||</b></span>
 					
 					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
-						<a th:if="${currentPage != i}" th:href="@{'/allproducts/' + ${i}}"> [[${i}]] </a>
-						<span th:unless="${currentPage != i}"> [[${i}]] </span>
+						<a th:if="${currentPage != i}" th:href="@{'/allproducts/' + ${i}}"><b>&emsp; [[${i}]] &emsp;</b></a>
+						<span th:unless="${currentPage != i}"><b>&emsp; [[${i}]] &emsp;</b></span>
 					</span>
 					
 					
-					<a th:if="${currentPage < totalPages}" th:href="@{'/allproducts/' + ${currentPage + 1}}"> Next Page </a>
-					<span th:unless="${currentPage < totalPages}">Go First Page</span>
+					<a th:if="${currentPage < totalPages}" th:href="@{'/allproducts/' + ${currentPage + 1}}"><b>||  Next  ||</b></a>
+					<span th:unless="${currentPage < totalPages}"><b>||  Go First Page ||</b></span>
 					
-					<a th:if="${currentPage < totalPages}" th:href="@{'/allproducts/' + ${totalPages}}"> Go Last Page </a>
-					<span th:unless="${currentPage  < totalPages}">Previous Page</span>
+					<a th:if="${currentPage < totalPages}" th:href="@{'/allproducts/' + ${totalPages}}"><b>Go Last Page</b></a>
+					<span th:unless="${currentPage  < totalPages}"><b>Previous Page  ||</b></span>
 					
 				</div>
                         <!-- <div class="shop_pagination_area wow fadeInUp" data-wow-delay="1.1s">

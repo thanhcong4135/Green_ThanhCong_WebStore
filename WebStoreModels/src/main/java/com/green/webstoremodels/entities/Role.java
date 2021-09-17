@@ -25,9 +25,9 @@ public class Role {
 	@Column(name = "role_name")
 	private String name;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "role_id"),
-	inverseJoinColumns = @JoinColumn(name = "user_id"))
+	@ManyToMany(mappedBy = "roles",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "role_id"),
+//	inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private Set<User> users = new HashSet<>();
 
 	public Integer getId() {

@@ -105,38 +105,12 @@
                             <div class="top_single_area d-flex align-items-center">
                                 <!-- Logo Area -->
                                 <div class="top_logo">
-                                    <a href="#"><img src="assets/img/core-img/logo.png" alt=""></a>
+                                    <a th:href="@{/home}"><img src="assets/img/core-img/logo.png" alt=""></a>
                                 </div>
                                 <!-- Cart & Menu Area -->
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
                                     <!-- Cart Area -->
-                                    <div class="cart">
-                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">2</span> <i class="ti-bag"></i> Your Bag $20</a>
-                                        <!-- Cart List Area Start -->
-                                        <ul class="cart-list">
-                                            <li>
-                                                <a href="#" class="image"><img src="assets/img/product-img/product-10.jpg" class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
-                                                </div>
-                                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="image"><img src="assets/img/product-img/product-11.jpg" class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
-                                                </div>
-                                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                            </li>
-                                            <li class="total">
-                                                <span class="pull-right">Total: $20.00</span>
-                                                <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
-                                                <a href="checkout-1.html" class="btn btn-sm btn-checkout">Checkout</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    
                                     <div class="header-right-side-menu ml-15">
                                         <a href="#" id="sideMenuBtn"><i class="ti-menu" aria-hidden="true"></i></a>
                                     </div>
@@ -180,7 +154,6 @@
                                                 </div>
                                             </li>
                                             <li class="nav-item"><a class="nav-link" th:href="@{/allproducts}">All product</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#"><span class="karl-level">hot</span> Shoes</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
                                             <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/profile}" sec:authentication="name">Name</a></li>
                                             <li sec:authorize="isAuthenticated()"><a class="nav-link" onclick="document.getElementById('formlogout').submit()">Logout</a>

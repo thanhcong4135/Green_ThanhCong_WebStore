@@ -22,7 +22,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 	
 //	@Override
 //	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		String password = PasswordManager.getBCrypPassword("123456");
+//		String password = PasswordManager.getBCrypPassword("12345678");
 //		
 //		auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
 //		.withUser("thanhcong4135@gmail.com").password(password).roles("ADMIN");
@@ -61,6 +61,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(1296000);
 		http.authorizeRequests()
 		.antMatchers("/assets/**","/css/**", "/js/**").permitAll()
 		.antMatchers("/users", "/roles").hasAnyAuthority("ADMIN")

@@ -32,7 +32,7 @@ public class CategoryController {
 		
 		categoryService.deleteCategoryById(id);
 		
-		return "redirect:/category_list";
+		return "redirect:/categories-list";
 	}
 	
 	@GetMapping("/addnew-category")
@@ -51,7 +51,28 @@ public class CategoryController {
 		category.setEnabled(true);
 		
 		categoryService.saveCategory(category);
-		return "redirect:/category_list";
+		return "redirect:/categories-list";
+	}
+	
+	@GetMapping("/edit-category/{id}")
+	private String showFormEditCategory(@PathVariable(name = "id") int id,Model model) {
+		
+		List<Category> listCategories = categoryService.getAllCategories();
+		Category category = categoryService.getCategoryById(id);
+		category.setEnabled(true);
+		model.addAttribute("category", category);
+		model.addAttribute("listCategories", listCategories);
+		
+		return "edit_category";
+	}
+	
+	@RequestMapping(value = "/edit_category",method = RequestMethod.POST)
+	private String updateCategory(@ModelAttribute("category")Category category) {
+		
+		category.setEnabled(true);
+		
+		categoryService.saveCategory(category);
+		return "redirect:/categories-list";
 	}
 
 }

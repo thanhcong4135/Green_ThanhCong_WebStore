@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -32,6 +33,7 @@ public class Address implements Serializable {
 	private String city;
 
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "customerId")
 	private Customer customer;
 
 	public Integer getAddressId() {
@@ -65,4 +67,25 @@ public class Address implements Serializable {
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
+
+	public Address(Integer addressId, String street, String city) {
+		super();
+		this.addressId = addressId;
+		this.street = street;
+		this.city = city;
+	}
+	
+	
+
+	@Override
+	public String toString() {
+		return street + ", " + city ;
+	}
+
+	public Address() {
+		super();
+	}
+	
+	
+	
 }

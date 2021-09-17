@@ -1,5 +1,7 @@
 package com.green.webstoremodels.formdata;
 
+import java.beans.Transient;
+import java.util.HashSet;
 import java.util.Set;
 
 import com.green.webstoremodels.entities.Role;
@@ -15,21 +17,61 @@ public class UserData {
 	
 	private Boolean enabled;
 	
-	private Set<Role> role;
+	private String avatar;
 	
-	public static UserData copyValueFormEntity(User entity) {
-		UserData data = new UserData();
+	private String address;
+	private String phoneNumber;
+	
+	private String role;
+	
+	private Set<Role> roles = new HashSet<>();
+	
+public User updateUserFormData() {
 		
-		data.id = entity.getId();
-		data.username = entity.getUsername();
-		data.full_name = entity.getFull_name();
-		data.password = entity.getPassword();
-		data.enabled = entity.getEnabled();
-		data.role = entity.getRoles();
+		User user = new User();
 		
-		return data;
+		user.setId(this.id);
+		user.setFull_name(this.full_name);
+		user.setUsername(this.username);
+		user.setPassword(this.password);
+		user.setAvatar(this.avatar);
+		user.setEnabled(this.enabled);
+		user.setRoles(this.roles);
+		user.setAddress(this.address);
+		user.setPhoneNumber(this.phoneNumber);
+		return user;
 	}
+	
+	@Transient
+	public void copyValueFromUserEntity(User user) {
+		
+		this.role = "";
+		
+		this.id = user.getId();
+		this.full_name = user.getFull_name();
+		this.username = user.getUsername();
+		this.password = user.getPassword();
+		this.avatar = user.getAvatar();
+		this.roles = user.getRoles();
 
+		for(Role userRole : roles) {
+			this.role += userRole.getName() + ", ";
+		}
+		
+	}
+	
+	@Transient
+	public String getPhotoPath() {
+		if(avatar == null || avatar.equals("")) {
+			return "../images/avatar.jpg";
+		}
+		if(id != null & (avatar != null || avatar.equals(""))) {
+			return "../profile-photos/" + id + "/" + avatar;
+//			return "http://localhost:8081/files/" + avatar;
+		}
+		return null;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -70,12 +112,52 @@ public class UserData {
 		this.enabled = enabled;
 	}
 
-	public Set<Role> getRole() {
+
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Set<Role> role) {
+	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public String getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "UserData [id=" + id + ", username=" + username + ", full_name=" + full_name + ", password=" + password
+				+ ", enabled=" + enabled + ", avatar=" + avatar + ", address=" + address + ", phoneNumber="
+				+ phoneNumber + ", role=" + role + ", roles=" + roles + "]";
 	}
 	
 	

@@ -22,8 +22,8 @@ public class ProductService {
 		return repository.getByCode(code);
 	}
 	
-	public void saveProduct(Product product) {
-		repository.save(product);
+	public Product save(Product product) {
+		return repository.save(product);
 	}
 	
 	public void deleteProductByCode(String code) {

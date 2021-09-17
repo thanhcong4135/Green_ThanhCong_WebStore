@@ -106,35 +106,27 @@
                             <div class="top_single_area d-flex align-items-center">
                                 <!-- Logo Area -->
                                 <div class="top_logo">
-                                    <a href="#"><img th:src="@{assets/img/core-img/logo.png}" alt=""></a>
+                                    <a th:href="@{/home}"><img th:src="@{assets/img/core-img/logo.png}" alt=""></a>
                                 </div>
                                 <!-- Cart & Menu Area -->
                                 <div class="header-cart-menu d-flex align-items-center ml-auto">
                                     <!-- Cart Area -->
-                                    <div class="cart">
-                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">2</span> <i class="ti-bag"></i> Your Bag $20</a>
+                                    <div class="cart" >
+                                        <a href="#" id="header-cart-btn" target="_blank"><span class="cart_quantity">[[${cartInfo.cartLines.size()}]]</span> <i class="ti-bag"></i> Your Bag $20</a>
                                         <!-- Cart List Area Start -->
-                                        <ul class="cart-list">
-                                            <li>
-                                                <a href="#" class="image"><img th:src="@{assets/img/product-img/product-10.jpg}" class="cart-thumb" alt=""></a>
+                                        <ul class="cart-list" >
+                                            <li th:each="cartLine, varStatus: ${cartInfo.cartLines}" th:id="'cartLine' + ${varStatus.count}">
+                                                <a href="#" class="image"><img src="assets/img/product-img/product-10.jpg" class="cart-thumb" alt=""></a>
                                                 <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
-                                                </div>
-                                                <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="image"><img th:src="@{assets/img/product-img/product-11.jpg}" class="cart-thumb" alt=""></a>
-                                                <div class="cart-item-desc">
-                                                    <h6><a href="#">Women's Fashion</a></h6>
-                                                    <p>1x - <span class="price">$10</span></p>
+                                                    <h6><a href="#">[[${cartLine.product.name}]]</a></h6>
+                                                    <p>[[${cartLine.quantity}]] - <span class="price">[[${cartLine.unitPrice}]]</span></p>
                                                 </div>
                                                 <span class="dropdown-product-remove"><i class="icon-cross"></i></span>
                                             </li>
                                             <li class="total">
-                                                <span class="pull-right">Total: $20.00</span>
-                                                <a href="" class="btn btn-sm btn-cart">Cart</a>
-                                                <a href="checkout-1.html" class="btn btn-sm btn-checkout">Checkout</a>
+                                                <span class="pull-right">Total: [[${cartInfo.totalCartInfo}]]</span>
+                                                <a th:href="@{/shopping_cart}" class="btn btn-sm btn-cart">Cart</a>
+                                                <a th:href="@{/checkout}" class="btn btn-sm btn-checkout">Checkout</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -181,8 +173,8 @@
                                                 </div>
                                             </li>
                                             <li class="nav-item"><a class="nav-link" th:href="@{/allproducts}">All product</a></li>
-                                            <li class="nav-item"><a class="nav-link" href="#"><span class="karl-level">hot</span> Shoes</a></li>
                                             <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                                            <li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/profile}" sec:authentication="name"></a></li>
                                             <li sec:authorize="isAuthenticated()"><a class="nav-link" onclick="document.getElementById('formlogout').submit()">Logout</a>
                                             	<form id="formlogout" th:action="@{/logout}" method="POST">
 									
@@ -248,19 +240,11 @@
                                         <td class="price"><span th:id="'itemPrice' + ${cartLine.product.code}" class="amount">[[${cartLine.unitPrice}]]</span></td>
                                         <td class="qtys">
                                             <div class="quantity">
-                                                <!-- <input id="minus" type="button" value="-" class="qty-minus" th:pid="${cartLine.product.code}">
-                                                <input type="number" class="qty-text" id="qty" step="1" min="1" max="99" name="quantity" value="1">
-                                                
-                                                <input type="hidden" th:name="|cartLines[${varStatus.index}].id|" th:value="${cartLine.product.id}">
-                                                <input type="text" th:name="|cartLines[${varStatus.index}].quantity|" th:value="${cartLine.quantity}" class="qty" th:id="'quantity' + ${cartLine.product.code}" />
-                                                
-                                                <input id="plus" type="button" value="+" class="qty-plus" th:pid="${cartLine.product.code}"> -->
                                                 
                                                 <span class="qty-minus" id="minus" th:pid="${cartLine.product.code}"><i class="fa fa-minus" aria-hidden="true"></i></span>
                                                 <input type="hidden" th:name="|cartLines[${varStatus.index}].id|" th:value="${cartLine.product.id}">
                                                 <input type="text" th:name="|cartLines[${varStatus.index}].quantity|" th:value="${cartLine.quantity}" class="qty" th:id="'quantity' + ${cartLine.product.code}">
                                                 <span class="qty-plus" id="plus" th:pid="${cartLine.product.code}"><i class="fa fa-plus" aria-hidden="true"></i></span>
-                                                
                                                 
                                             </div>
                                         </td>

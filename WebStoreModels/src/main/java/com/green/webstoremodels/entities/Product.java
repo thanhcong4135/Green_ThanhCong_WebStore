@@ -44,6 +44,8 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -117,6 +119,24 @@ public class Product {
 		this.category = category;
 	}
 	
+	
+	
+	public Product(String name, String code, String description, String photo, Float price, Float sale_price,
+			Boolean enabled) {
+		super();
+		this.name = name;
+		this.code = code;
+		this.description = description;
+		this.photo = photo;
+		this.price = price;
+		this.sale_price = sale_price;
+		this.enabled = enabled;
+	}
+	
+	public Product() {
+		super();
+	}
+
 	@Transient
 	public void updateFormData(ProductData data) {
 		this.name = data.getName();
@@ -125,4 +145,12 @@ public class Product {
 		this.price = data.getPrice();
 		this.sale_price = data.getSale_price();
 	}
+	
+	@Transient
+    public String getPhotosImagePath() {
+        if (photo == null || id == null) return null;
+         
+        return "/product-photos/" + code + "/" + photo;
+    }
+
 }

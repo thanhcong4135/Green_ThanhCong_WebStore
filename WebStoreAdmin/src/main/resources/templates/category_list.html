@@ -11,6 +11,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -27,13 +28,16 @@
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <li class="nav-item dropdown"sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" th:href="@{/profile}" sec:authentication="name" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><a class="dropdown-item" th:href="@{/profile}">Profile</a></li>
+                        <li sec:authorize="isAuthenticated()"><a class="dropdown-item" onclick="document.getElementById('formlogout').submit()">Logout</a>
+                        	<form id="formlogout" th:action="@{/logout}" method="POST">
+									
+							</form>
+                        </li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -56,9 +60,13 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Categories
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" th:href="@{/customers-list}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Customer
+                            </a>
+                            <a class="nav-link" th:href="@{/roles-list}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Roles
                             </a>
                         </div>
                     </div>
@@ -86,9 +94,9 @@
                                     <thead>
                                         <tr>
                                             <th>Id</th>
+						                    <th>Name</th>
 						                    <th>Code</th>
 						                    <th>Description</th>
-						                    <th>Name</th>
 						                    <th>Parent name</th>
 						                    <th>Option</th>
                                         </tr>
@@ -96,9 +104,9 @@
                                     <tfoot>
                                         <tr>
                                             <th>Id</th>
+						                    <th>name</th>
 						                    <th>Code</th>
 						                    <th>Description</th>
-						                    <th>Name</th>
 						                    <th>Parent name</th>
 						                    <th>Option</th>
                                         </tr>
@@ -106,14 +114,14 @@
                                     <tbody>
                                         <tr  th:each="category : ${listCategories}">
 					                    <td th:text="${category.id}"></td>
+					                    <td th:text="${category.name}"></td>
 					                    <td th:text="${category.code}"></td>
 					                    <td th:text="${category.description}"></td>
-					                    <td th:text="${category.name}"></td>
 					                    <td th:text="${category.parentName}"></td>
 					                    <td>
 					                    	<a th:href="@{/edit-category/{id}(id=${category.id})}">Update</a>
 					                 		&emsp;
-					                    	<!-- <a th:href="@{/delete-category/{id}(id=${category.id})}">Delete</a> -->
+					                    	<a th:href="@{/delete-category/{id}(id=${category.id})}">Delete</a>
 					                    </td>
 					                  	</tr>
                                     </tbody>

@@ -12,6 +12,6 @@ import com.green.webstoremodels.entities.Product;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	
 	@Query("SELECT c FROM Category c WHERE c.id = :id")
-	public Category getById(@Param("id") String id);
+	public Category getById(@Param("id") int id);
 
 }

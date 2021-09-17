@@ -11,6 +11,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link th:href="@{/css/styles.css}" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -27,13 +28,16 @@
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <li class="nav-item dropdown"sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" th:href="@{/profile}" sec:authentication="name" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                        <li><a class="dropdown-item" th:href="@{/profile}">Profile</a></li>
+                        <li sec:authorize="isAuthenticated()"><a class="dropdown-item" onclick="document.getElementById('formlogout').submit()">Logout</a>
+                        	<form id="formlogout" th:action="@{/logout}" method="POST">
+									
+							</form>
+                        </li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -70,62 +74,61 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Edit product</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Edit product</li>
-                        </ol>
-                        
-			               <form th:action="@{/update-product}" th:method="post" th:object="${product}">
-			                <div class="card-body">       
-			                  <div class="form-group">
+                        <h1 class="mt-4">Detail product</h1>
+                      <br>
+                        <div class="container">
+                        <div class="row">
+                        <div class="col-md-7">
+			               <form class="form-inline" th:action="@{/update-product}" th:object="${product}" th:method="post">    
+			                  
 			                    <b>Name</b>
 			                    <input type="text" th:field="*{name}" class="form-control">
-			                  </div>
-			                  
-			                  <div class="form-group">
+			                    
+			                    <br>
 			                    <b>Code</b>
 			                    <input type="text" th:field="*{code}" class="form-control">
-			                  </div>
-			                  
-			                  <div class="form-group">
+			                  	
+			                  	<br>
 			                  	<b>Description</b>
 			                    <input type="text" th:field="*{description}" class="form-control">
-			                  </div>
 			                  
-			                  <div class="form-group">
+			                  	<br>
 			                  	<b>Price</b>
 			                    <input type="text" th:field="*{price}" class="form-control">
-			                  </div>
 			                  
-			                  <div class="form-group">
+			                  	<br>
 			                  	<b>Sale Price</b>
 			                    <input type="text" th:field="*{sale_price}" class="form-control">
-			                  </div>
-			                  <div class="form-group">
-								<b>Category &emsp;</b> 
-								<select th:field="*{category}">
+			                    <br>
+			                 
+								<div class="form-group">
+								<b>Category &emsp;</b> <select th:field="*{category}">
 									<th:block th:each="cat : ${listCategories}">
 										<option th:value="${cat.id}">[[${cat.name}]]</option>
 									</th:block>
 								</select>
 							</div>
-			                  
-			                </div>
-			                <!-- /.card-body -->
-			
-			                <div class="card-footer">
-			                  <button type="submit" class="btn btn-primary">Submit</button>
-			                </div>
+							<br>
+							
 			              </form>
+			              </div>
+			              <div class="col-md-5">
+			              		<form class="form-inline" th:object="${product}">
+			              			<b>Photo</b> 
+			              			<img th:src="@{[[${getPhotosImagePath}]]}">
+			              		</form>
+			              </div>
+			              </div>
+			              
+			              </div>
                         
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                            
-                        </div>
+                        
+                        
+                        
                     </div>
                 </footer>
             </div>

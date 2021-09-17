@@ -3,6 +3,7 @@ package com.green.webstoreclient.controllers;
 import java.util.Locale;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,8 @@ import com.green.webstoreclient.securities.PasswordManager;
 import com.green.webstoremodels.formdata.CustomerForm;
 import com.green.webstoreclient.helpers.EmailServiceImpl;
 import com.green.webstoremodels.entities.Customer;
+import com.green.webstoreclient.carts.CartInfo;
+import com.green.webstoreclient.carts.CartSessionUtil;
 import com.green.webstoreclient.customers.CustomerService;
 
 @Controller
@@ -40,7 +43,12 @@ public class ClientAppController {
 		}
 		
 		@RequestMapping(value = {"/", "/home"})
-		public String showHomeView(Model model) {
+		public String showHomeView(HttpServletRequest request,Model model) {
+			CartInfo cartInfo = CartSessionUtil.getCartInSession(request);
+
+			model.addAttribute("cartInfo", cartInfo);
+			model.addAttribute("totalCartInfo", cartInfo.totalCartInfo());
+			model.addAttribute("cartSize", cartInfo.getCartLines().size());
 			
 			System.out.println("return home view !");
 			//System.out.println(PasswordManager.getBCrypPassword("12345678"));
