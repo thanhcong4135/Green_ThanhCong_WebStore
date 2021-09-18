@@ -22,7 +22,7 @@ public class CategoryService {
 		return repository.getRootCategory();
 	}
 	
-	public Category getById(Integer id) {
+	public Category getById(int id) {
 		return repository.getById(id);
 	}
 	

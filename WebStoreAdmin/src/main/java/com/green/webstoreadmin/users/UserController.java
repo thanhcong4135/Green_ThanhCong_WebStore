@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.green.webstoreadmin.file.FileUploadUtil;
 import com.green.webstoreadmin.handler.AppConstant;
 import com.green.webstoreadmin.helper.FileUploadHelper;
 import com.green.webstoreadmin.roles.RoleService;
@@ -74,28 +75,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/create_user", method = RequestMethod.POST)
-	public String createNewUser(@ModelAttribute("user") User user , @RequestParam("fileImage") MultipartFile multipartFile, Model model) {
+	public String createNewUser(@ModelAttribute("user") User user , @RequestParam("fileImage") 
+								MultipartFile multipartFile, Model model) throws IOException{
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-
-		String uploadDir = "";
-		if(!fileName.equals("")) {
-			user.setEnabled(true);
-			user.setAvatar(fileName);
-			
-			User saveUse = userService.saveUser(user);
-			uploadDir = AppConstant.PROFILE_PHOTO_DIR + "/" + saveUse.getId();
-			
-			try {
-				FileUploadHelper.saveFile(uploadDir, fileName, multipartFile);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		user.setAvatar(fileName);
+		user.setEnabled(true);
 		
-		if(!multipartFile.isEmpty()) {
-			storageService.store(multipartFile, uploadDir);
-		}
+		User saveUser = userService.saveUser(user);
+		String uploadDir = "./profile-photos/" + saveUser.getId();
+		System.out.println("file name: " + fileName);
+		FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+		
 		return "redirect:/users-list";
 	}
 	

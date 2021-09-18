@@ -1,5 +1,7 @@
 package com.green.webstoreadmin.security;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 import com.green.webstoreadmin.handler.OnAuthenticationFailureHandler;
 import com.green.webstoreadmin.handler.OnAuthenticationSuccessHandler;
@@ -28,6 +32,9 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 //		.withUser("thanhcong4135@gmail.com").password(password).roles("ADMIN");
 //		
 //	}
+	
+	@Autowired
+	private DataSource dataSource;
 	
 	@Autowired
 	private OnAuthenticationSuccessHandler successHandler;
@@ -54,6 +61,14 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 		return authProvider;
 	}
 	
+	@Bean
+	public PersistentTokenRepository persistentTokenRepository() {
+		JdbcTokenRepositoryImpl tokenRepo = new JdbcTokenRepositoryImpl();
+		tokenRepo.setDataSource(dataSource);
+		
+		return tokenRepo;
+	}
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());	
@@ -61,7 +76,7 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(1296000);
+		http.rememberMe().key("thanhcong").tokenValiditySeconds(1296000);
 		http.authorizeRequests()
 		.antMatchers("/assets/**","/css/**", "/js/**").permitAll()
 		.antMatchers("/users", "/roles").hasAnyAuthority("ADMIN")

@@ -44,10 +44,6 @@ public class ProductService {
 	
 	public List<Product> getProductCategory(Category category) {
 		List<Product> listProducts = repository.getProductByCategoryId(category.getId());
-		for(Product product : listProducts)
-		{
-			System.out.println("1: " + product);
-		}
 		return listProducts;
 	}
 	

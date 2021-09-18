@@ -234,7 +234,7 @@
                                 <tbody>
                                     <tr th:each="cartLine, varStatus: ${cartInfo.cartLines}" th:id="'cartLine' + ${varStatus.count}">
                                         <td class="cart_product_img d-flex align-items-center">
-                                            <a href="#"><img th:src="@{assets/img/product-img/product-6.jpg}" alt="Product"></a>
+                                            <a href="#"><img th:src="@{${cartLine.product.getPhotoToClient}}" alt="Product"></a>
                                             <h6>[[${cartLine.product.name}]]</h6>
                                         </td>
                                         <td class="price"><span th:id="'itemPrice' + ${cartLine.product.code}" class="amount">[[${cartLine.unitPrice}]]</span></td>

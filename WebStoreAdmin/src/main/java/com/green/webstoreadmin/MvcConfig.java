@@ -16,36 +16,28 @@ public class MvcConfig implements WebMvcConfigurer{
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-		exposeDirectory(AppConstant.PROFILE_PHOTO_DIR, registry);
+//		exposeDirectory(AppConstant.PROFILE_PHOTO_DIR, registry);
 //		exposeDirectory(AppConstant.PRODUCT_PHOTO_DIR, registry);
-		exposeDirectory(AppConstant.CUSTOMER_PHOTO_DIR, registry);
-		exposeDirectory(AppConstant.CATEGORY_PHOTO_DIR, registry);
+//		exposeDirectory(AppConstant.CUSTOMER_PHOTO_DIR, registry);
+//		exposeDirectory(AppConstant.CATEGORY_PHOTO_DIR, registry);
 		
-		Path userUploadDir = Paths.get("./product-photos");
+		Path productUploadDir = Paths.get("./product-photos");
+		Path userUploadDir = Paths.get("./profile-photos");
+		
+		String productUploadPath = productUploadDir.toFile().getAbsolutePath();
 		String userUploadPath = userUploadDir.toFile().getAbsolutePath();
 		
-		registry.addResourceHandler("/product-photos/**").addResourceLocations("file:/" + userUploadPath + "/");
+		
+		registry.addResourceHandler("/product-photos/**").addResourceLocations("file:/" + productUploadPath + "/");
+		registry.addResourceHandler("/profile-photos/**").addResourceLocations("file:/" + userUploadPath + "/");
 	}
 	
-	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
-		Path uploadDir = Paths.get(dirName);
+//	private void exposeDirectory(String dirName, ResourceHandlerRegistry registry) {
+//		Path uploadDir = Paths.get(dirName);
 //		String uploadPath = uploadDir.toFile().getAbsolutePath();
-		String uploadPath2 = "";
-		try {
-			uploadPath2 = uploadDir.toFile().getCanonicalPath();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-//		System.out.println("MvcConfig :: " + uploadPath);
-//		System.out.println("MvcConfig :: " + dirName);
-		
-		if(dirName.startsWith("../")) {
-			dirName.replace("../", "");
-		}
-		
-		System.out.println("------------------- " + uploadPath2);
-		
-		registry.addResourceHandler("/" + dirName + "/**").addResourceLocations("file:/" + uploadPath2 + "/");
-	}
+//		
+//		registry.addResourceHandler("/profile-photos/**").addResourceLocations("file:/" + uploadPath + "/");
+//
+//	}
 
 }

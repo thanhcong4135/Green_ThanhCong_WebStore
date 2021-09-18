@@ -40,7 +40,7 @@ public class EmailServiceImpl {
 			helper.setSubject(subject);
 			helper.setFrom(from);
 			helper.setTo(to);
-			helper.setText("<h1>WEBSTORE</h1><BR>" + message);
+			helper.setText("<h1>KARL FASION STORE</h1><BR>" + message);
 
 			mailSender.send(mimeMessage);
 		} catch (MessagingException e) {

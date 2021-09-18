@@ -16,7 +16,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" th:href="@{/}">BIKE STORE</a>
+            <a class="navbar-brand ps-3" th:href="@{/}">KARL FASION STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -61,13 +61,17 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Categories
                             </a>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" th:href="@{/customers-list}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Customer
                             </a>
                             <a class="nav-link" th:href="@{/roles-list}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Roles
+                            </a>
+                            <a class="nav-link" th:href="@{/orders-list}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Orders
                             </a>
                         </div>
                     </div>
@@ -104,8 +108,7 @@
 						                    <th>Full name</th>
 						                    <th>User name</th>
 						                    <th>Position</th>
-						                    <th>Update</th>
-						                    <th>Delete</th>
+						                    <th>Option</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -115,23 +118,20 @@
 						                    <th>Full name</th>
 						                    <th>User name</th>
 						                    <th>Position</th>
-						                    <th>Update</th>
-						                    <th>Delete</th>
+						                    <th>Option</th>
 						                    
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <tr  th:each="user : ${listUsers}">
-					                    <td th:text="${user.id}">Internet Explorer 4.0</td>
-					                    <td ><img th:src="@{${user.getPhotoPath}}"  width="100"></td>
-					                    <td th:text="${user.full_name}"> 4</td>
-					                    <td th:text="${user.username}">X</td>
-					                    <td th:text="${user.role}">X</td>
+						                    <td th:text="${user.id}">Internet Explorer 4.0</td>
+						                    <td ><img th:src="@{${user.getPhotoPath}}" style="width: 125px;height: 125px"></td>
+						                    <td th:text="${user.full_name}"> 4</td>
+						                    <td th:text="${user.username}">X</td>
+						                    <td th:text="${user.role}">X</td>
 					                    <td>
-					                    	<a th:href="@{/edit-user/{id}(id=${user.id})}">Update</a>
-					                    </td>
-					                    <td>
-					                    	<a th:href="@{/delete-user/{id}(id=${user.id})}">Delete</a>
+					                    	<a th:href="@{/edit-user/{id}(id=${user.id})}"><h6>Update</h6></a>
+					                    	<a th:href="@{/delete-user/{id}(id=${user.id})}"><h6>Delete</h6></a>
 					                    </td>
 					                  	</tr>
                                     </tbody>

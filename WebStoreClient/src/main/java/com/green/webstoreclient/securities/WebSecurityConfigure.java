@@ -72,9 +72,8 @@ public class WebSecurityConfigure extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.rememberMe().key("uniqueAndSecret").tokenValiditySeconds(1296000);
-		
 		http.authorizeRequests()
-		.antMatchers("/", "/home", "/register", "/allproducts/**","/api/products/**","../assets/**","/addtocart/**").permitAll()
+		.antMatchers("/", "/home", "/register", "/allproducts/**","/shopping_cart","/loadproduct-bycategoryid/**","../assets/**").permitAll()
 		.anyRequest().authenticated()
 		.and().formLogin().loginPage("/login").permitAll()
 		.usernameParameter("email")

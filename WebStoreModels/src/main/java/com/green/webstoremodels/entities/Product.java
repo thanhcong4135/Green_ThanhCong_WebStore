@@ -152,5 +152,12 @@ public class Product {
          
         return "/product-photos/" + code + "/" + photo;
     }
+	
+	@Transient
+    public String getPhotoToClient() {
+        if (photo == null) return null;
+         
+        return "/assets/img/product-img/" + photo;
+    }
 
 }

@@ -16,7 +16,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" th:href="@{/}">BIKE STORE</a>
+            <a class="navbar-brand ps-3" th:href="@{/}">KARL FASION STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -69,6 +69,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Roles
                             </a>
+                            <a class="nav-link" th:href="@{/orders-list}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Orders
+                            </a>
                         </div>
                     </div>
                     
@@ -77,9 +81,9 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Edit product</h1>
+                        <h1 class="mt-4">Edit Role name</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Edit product</li>
+                            <li class="breadcrumb-item active">Edit role name</li>
                         </ol>
                         
 			               <form th:action="@{/edit_role}" th:method="post" th:object="${role}">

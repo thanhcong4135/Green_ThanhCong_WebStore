@@ -16,7 +16,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" th:href="@{/}">BIKE STORE</a>
+            <a class="navbar-brand ps-3" th:href="@{/}">KARL FASION STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -68,6 +68,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Roles
                             </a>
+                            <a class="nav-link" th:href="@{/orders-list}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                                Orders
+                            </a>
                         </div>
                     </div>
                     
@@ -107,17 +111,17 @@
                                     
                                   <tbody>
                                         <tr  th:each="product : ${listProducts}">
-                                        <td ><img th:src="@{${product.getPhotosImagePath}}" style="width: 125px;height: 125px"></td>
-					                    <td th:text="${product.name}"></td>
-					                    <td th:text="${product.code}"></td>
-					                    <td th:text="${product.description}"></td>
-					                    <td th:text="${product.category.name}"></td>
-					                    <td th:text="${product.price}"></td>
-					                    <td>
-					                    	<a th:href="@{/edit-product/code={code}(code=${product.code})}"><h6>Edit</h6></a><br>
-					                    	<a th:href="@{/delete-product/{id}(id=${product.id})}"><h6>Delete</h6></a><br>
-					                    	<a th:href="@{/detail-product/code={code}(code=${product.code})}"><h6>Detail</h6></a>
-					                    </td>
+	                                        <td ><img th:src="@{${product.getPhotosImagePath}}" style="width: 125px;height: 125px"></td>
+						                    <td th:text="${product.name}"></td>
+						                    <td th:text="${product.code}"></td>
+						                    <td th:text="${product.description}"></td>
+						                    <td th:text="${product.category.name}"></td>
+						                    <td th:text="${product.price}"></td>
+						                    <td>
+						                    	<a th:href="@{/edit-product/code={code}(code=${product.code})}"><h6>Edit</h6></a><br>
+						                    	<a th:href="@{/delete-product/{id}(id=${product.id})}"><h6>Delete</h6></a><br>
+						                    	<a th:href="@{/detail-product/code={code}(code=${product.code})}"><h6>Detail</h6></a>
+						                    </td>
 					                    
 					                    <!-- <td><a th:href="@{/edit/{code}(code=${product.code})}">Cập nhât</a</td> -->
 					                  	</tr>

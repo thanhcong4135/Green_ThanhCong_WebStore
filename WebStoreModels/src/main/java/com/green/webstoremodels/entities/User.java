@@ -152,12 +152,8 @@ public class User {
 
 	@Transient
 	public String getPhotoPath() {
-		if(avatar == null || avatar.equals("") || id == null) {
-			return "../images/avatar.jpg";
-		}
-			return "../profile-photos/" + id + "/" + avatar;
-//			return "http://localhost:8081/files/"+ avatar;
-
+		if(avatar == null  || id == null) return null;
+			return "/profile-photos/" + id + "/" + avatar;
 	}
 
 }
