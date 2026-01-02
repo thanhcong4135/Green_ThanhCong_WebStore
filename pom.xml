@@ -1,14 +1,28 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+﻿<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>3.2.5</version>
+    <relativePath/>
+  </parent>
   <groupId>com.green</groupId>
-  <artifactId>WebStoreBike</artifactId>
+  <artifactId>WebStore</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>Online Bike Store</name>
-  <description>Mai Loc - Vo Thanh Cong</description>
+  <name>Mobile Store</name>
+  <description>Vo Thanh Cong</description>
+  <properties>
+    <java.version>21.0.7</java.version>
+    <flyway.version>10.15.0</flyway.version>
+  </properties>
   <modules>
-  	<module>WebStoreModels</module>
-  	<module>WebStoreAdmin</module>
-  	<module>WebStoreClient</module>
+    <module>common-contracts</module>
+    <module>admin-service</module>
+    <module>shop-service</module>
+    <module>auth-service</module>
+    <module>product-service</module>
+    <module>order-service</module>
   </modules>
 </project>

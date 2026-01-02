@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS customers (
+    customerId INT AUTO_INCREMENT PRIMARY KEY,
+    FIRST_NAME VARCHAR(100) NOT NULL,
+    LAST_NAME VARCHAR(100) NOT NULL,
+    EMAIL VARCHAR(64) NOT NULL UNIQUE,
+    PASSWORD VARCHAR(128) NOT NULL,
+    phone_number VARCHAR(12) UNIQUE,
+    verified TINYINT(1) DEFAULT 0,
+    verification_code VARCHAR(128) UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS address (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    STREET VARCHAR(128) NOT NULL,
+    CITY VARCHAR(128) NOT NULL,
+    customerId INT,
+    CONSTRAINT fk_address_customer FOREIGN KEY (customerId) REFERENCES customers(customerId)
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ADDRESS VARCHAR(255),
+    TOTAL_PRICE DECIMAL(15,2),
+    orderCode VARCHAR(100),
+    STATUS VARCHAR(50),
+    customer_customerId INT,
+    CONSTRAINT fk_orders_customer FOREIGN KEY (customer_customerId) REFERENCES customers(customerId)
+);
+
+CREATE TABLE IF NOT EXISTS orderdetail (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    PRODUCT_NAME VARCHAR(255),
+    PRICE DECIMAL(15,2),
+    quantity INT,
+    order_id INT,
+    CONSTRAINT fk_orderdetail_order FOREIGN KEY (order_id) REFERENCES orders(id)
+);

@@ -1,0 +1,13 @@
+package com.green.webstoreclient;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class WebStoreClientApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
