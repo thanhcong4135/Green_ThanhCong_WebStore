@@ -1,9 +1,0 @@
-com\green\product\domain\Category.class
-com\green\product\domain\Product.class
-com\green\product\service\CategoryService.class
-com\green\product\api\CategoryController.class
-com\green\product\api\ProductController.class
-com\green\product\ProductServiceApplication.class
-com\green\product\repo\CategoryRepository.class
-com\green\product\repo\ProductRepository.class
-com\green\product\service\ProductService.class

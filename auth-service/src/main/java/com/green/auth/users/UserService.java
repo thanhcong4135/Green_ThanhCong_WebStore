@@ -26,6 +26,10 @@ public class UserService {
 		return repository.getByUsername(username);
 	}
 	
+	public User getUserByPhone(String phone) {
+		return repository.getByPhone(phone);
+	}
+	
 	public void deleteUserById(int id) {
 		repository.deleteById(id);
 	}

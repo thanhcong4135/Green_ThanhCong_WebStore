@@ -10,6 +10,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
+import com.green.product.domain.Brand;
+
 @Entity
 @Table(name = "products")
 public class Product {
@@ -42,6 +44,13 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
+
+    @Column(name = "brand_name")
+    private String brandName;
+
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
     public String getName() { return name; }
@@ -58,6 +67,10 @@ public class Product {
     public void setSale_price(Float sale_price) { this.sale_price = sale_price; }
     public Boolean getEnabled() { return enabled; }
     public void setEnabled(Boolean enabled) { this.enabled = enabled; }
+    public String getBrandName() { return brandName; }
+    public void setBrandName(String brandName) { this.brandName = brandName; }
+    public Brand getBrand() { return brand; }
+    public void setBrand(Brand brand) { this.brand = brand; }
     public Category getCategory() { return category; }
     public void setCategory(Category category) { this.category = category; }
 

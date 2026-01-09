@@ -12,6 +12,8 @@ import com.green.webstoremodels.dto.OrderDto;
 import com.green.webstoremodels.dto.OrderDetailDto;
 import com.green.webstoremodels.dto.CustomerDto;
 import com.green.webstoremodels.dto.AddressDto;
+import com.green.webstoremodels.dto.CheckoutRequest;
+import com.green.webstoremodels.dto.OrderTrackingDto;
 
 @Component
 public class OrderApiClient {
@@ -40,8 +42,30 @@ public class OrderApiClient {
         return restTemplate.getForObject(url, OrderDto.class);
     }
 
-    public OrderDto createOrder(OrderDto dto) {
-        return restTemplate.postForObject(ordersUrl, dto, OrderDto.class);
+    public OrderDto createOrder(CheckoutRequest dto) {
+        String url = UriComponentsBuilder.fromHttpUrl(ordersUrl)
+                .path("/checkout")
+                .toUriString();
+        return restTemplate.postForObject(url, dto, OrderDto.class);
+    }
+
+    public List<OrderDto> lookupOrder(String orderCode, String phone) {
+        String url = UriComponentsBuilder.fromHttpUrl(ordersUrl)
+                .path("/lookup")
+                .queryParam("orderCode", orderCode)
+                .queryParam("phone", phone)
+                .toUriString();
+        OrderDto[] orders = restTemplate.getForObject(url, OrderDto[].class);
+        return orders != null ? Arrays.asList(orders) : List.of();
+    }
+
+    public List<OrderDto> findByCustomer(Integer customerId) {
+        String url = UriComponentsBuilder.fromHttpUrl(ordersUrl)
+                .path("/by-customer/")
+                .path(String.valueOf(customerId))
+                .toUriString();
+        OrderDto[] orders = restTemplate.getForObject(url, OrderDto[].class);
+        return orders != null ? Arrays.asList(orders) : List.of();
     }
 
     public List<CustomerDto> findAllCustomers() {
@@ -70,5 +94,13 @@ public class OrderApiClient {
     public List<OrderDetailDto> findOrderDetails() {
         OrderDetailDto[] details = restTemplate.getForObject(orderDetailsUrl, OrderDetailDto[].class);
         return details != null ? Arrays.asList(details) : List.of();
+    }
+
+    public List<OrderTrackingDto> getTracking(Integer orderId) {
+        String url = UriComponentsBuilder.fromHttpUrl(ordersUrl)
+                .pathSegment(String.valueOf(orderId), "tracking")
+                .toUriString();
+        OrderTrackingDto[] events = restTemplate.getForObject(url, OrderTrackingDto[].class);
+        return events != null ? Arrays.asList(events) : List.of();
     }
 }

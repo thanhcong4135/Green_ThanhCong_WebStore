@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.green.product.domain.Category;
 import com.green.product.domain.Product;
 import com.green.product.service.ProductService;
 import com.green.product.service.CategoryService;
+import com.green.product.service.BrandService;
 import com.green.webstoremodels.dto.ProductDto;
 
 @RestController
@@ -26,6 +28,26 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private BrandService brandService;
+
+    @GetMapping("/search")
+    public ResponseEntity<?> search(@RequestParam(required = false) Integer categoryId,
+                                   @RequestParam(required = false) Integer brandId,
+                                   @RequestParam(required = false) Double priceFrom,
+                                   @RequestParam(required = false) Double priceTo,
+                                   @RequestParam(required = false) String keyword,
+                                   @RequestParam(required = false) String sort,
+                                   @RequestParam(required = false, defaultValue = "0") Integer page,
+                                   @RequestParam(required = false, defaultValue = "20") Integer size) {
+        var result = productService.searchPage(categoryId, brandId, priceFrom, priceTo, keyword, sort, page, size)
+                .map(this::toDto);
+        return ResponseEntity.ok(result);
+    }
 
     @GetMapping
     public List<ProductDto> list() {
@@ -48,7 +70,8 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> update(@PathVariable Integer id, @RequestBody ProductDto dto) {
         Product existing = productService.findById(id);
-        if (existing == null) return ResponseEntity.notFound().build();
+        if (existing == null)
+            return ResponseEntity.notFound().build();
         Product entity = toEntity(dto);
         entity.setId(id);
         Product saved = productService.save(entity);
@@ -61,9 +84,6 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    @Autowired
-    private CategoryService categoryService;
-
     private ProductDto toDto(Product p) {
         ProductDto dto = new ProductDto();
         dto.setId(p.getId());
@@ -73,6 +93,8 @@ public class ProductController {
         dto.setPhoto(p.getPhoto());
         dto.setPrice(p.getPrice());
         dto.setSalePrice(p.getSale_price());
+        dto.setBrandName(p.getBrandName());
+        dto.setBrandId(p.getBrand() != null ? p.getBrand().getId() : null);
         dto.setCategoryId(p.getCategory() != null ? p.getCategory().getId() : null);
         return dto;
     }
@@ -86,6 +108,11 @@ public class ProductController {
         p.setPhoto(dto.getPhoto());
         p.setPrice(dto.getPrice());
         p.setSale_price(dto.getSalePrice());
+        p.setBrandName(dto.getBrandName());
+        if (dto.getBrandId() != null) {
+            var b = brandService.findById(dto.getBrandId());
+            p.setBrand(b);
+        }
         if (dto.getCategoryId() != null) {
             Category c = categoryService.findById(dto.getCategoryId());
             p.setCategory(c);

@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS products (
     price DECIMAL(15,2),
     sale_price DECIMAL(15,2),
     enabled TINYINT(1),
+    brand_name VARCHAR(255),
     category_id INT,
     CONSTRAINT fk_products_category FOREIGN KEY (category_id) REFERENCES categories(id)
 );

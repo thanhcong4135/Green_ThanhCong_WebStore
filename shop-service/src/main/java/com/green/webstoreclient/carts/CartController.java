@@ -36,35 +36,41 @@ public class CartController {
 	
 	@Autowired
 	private CustomerService customerService;
+
+	@Autowired
+	private CartTokenService cartTokenService;
 	
 	@PostMapping("/items")
-	public ResponseEntity<CartInfo> addProduct(HttpServletRequest request, @RequestParam(value = "code") String code) {
+	public ResponseEntity<CartResponse> addProduct(@RequestParam(value = "code") String code,
+			@RequestParam(value = "cartId", required = false) String cartId) {
 		
 		ProductDto product = productService.getByCode(code);
-		CartInfo cartInfo = CartSessionUtil.getCartInSession(request);
-		
+		var cartWithId = cartTokenService.getOrCreate(cartId);
 		if (product != null) {
-			cartInfo.addProduct(product, 1);
+			cartWithId.getCart().addProduct(product, 1);
 		}
 		
-		return ResponseEntity.ok(cartInfo);
+		return ResponseEntity.ok(new CartResponse(cartWithId.getCartId(), cartWithId.getCart()));
 	}
 	
 	@GetMapping
-	public ResponseEntity<CartInfo> getCart(HttpServletRequest request) {
-		CartInfo cartInfo = CartSessionUtil.getCartInSession(request);
-		return ResponseEntity.ok(cartInfo);
+	public ResponseEntity<CartResponse> getCart(@RequestParam(value = "cartId", required = false) String cartId) {
+		var cartWithId = cartTokenService.getOrCreate(cartId);
+		return ResponseEntity.ok(new CartResponse(cartWithId.getCartId(), cartWithId.getCart()));
 	}
 	
 	@GetMapping("/checkout-info")
-	public ResponseEntity<?> checkoutInfo(HttpServletRequest request) {
-		
-		CartInfo cartInfo = CartSessionUtil.getCartInSession(request);
-		
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
-                .getPrincipal();
-		String username = userDetails.getUsername();
-		CustomerDto customer = customerService.getCustomerByEmail(username);
+	public ResponseEntity<?> checkoutInfo(@RequestParam(value = "cartId", required = false) String cartId) {
+		var cartWithId = cartTokenService.getOrCreate(cartId);
+		CartInfo cartInfo = cartWithId.getCart();
+
+		String username = null;
+		CustomerDto customer = null;
+		try {
+			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			username = userDetails.getUsername();
+			customer = customerService.getCustomerByEmail(username);
+		} catch (Exception ignored) {}
 		
 		String addressStr = "";
 		if(customer != null && !addressService.getAddressByCustomerId(customer.getId()).isEmpty()) {
@@ -72,33 +78,58 @@ public class CartController {
 			addressStr = addr.getStreet() + ", " + addr.getCity();
 		}
 			
-		return ResponseEntity.ok(new CheckoutInfo(cartInfo, username, addressStr));
+		return ResponseEntity.ok(new CheckoutInfo(cartWithId.getCartId(), cartInfo, username, addressStr));
 	}
 	
 	@PostMapping("/checkout")
-	public ResponseEntity<?> orderSuccess(HttpServletRequest request, @RequestParam("address") String address) {
+	public ResponseEntity<?> orderSuccess(
+			@RequestParam("address") String address,
+			@RequestParam(value = "receiverName", required = false) String receiverName,
+			@RequestParam(value = "receiverPhone", required = false) String receiverPhone,
+			@RequestParam(value = "paymentMethod", required = false) String paymentMethod,
+			@RequestParam(value = "shippingFee", required = false) Double shippingFee,
+			@RequestParam(value = "discountAmount", required = false) Double discountAmount,
+			@RequestParam(value = "voucherCode", required = false) String voucherCode,
+			@RequestParam(value = "paymentProvider", required = false) String paymentProvider,
+			@RequestParam(value = "cartId", required = false) String cartId) {
 		
-		CartInfo cartInfo = CartSessionUtil.getCartInSession(request);
-		String orderCode = orderService.saveOrder(cartInfo,address);
-		CartSessionUtil.removeCartInSession(request);
-		
+		var cartWithId = cartTokenService.getOrCreate(cartId);
+		CartInfo cartInfo = cartWithId.getCart();
+		String orderCode = orderService.saveOrder(
+				cartInfo,
+				address,
+				receiverName,
+				receiverPhone,
+				paymentMethod,
+				shippingFee,
+				discountAmount,
+				voucherCode,
+				paymentProvider);
+		if (cartWithId.getCartId() != null) {
+			cartTokenService.remove(cartWithId.getCartId());
+		}
 		return ResponseEntity.ok(orderCode);
 	}
 	
 	@DeleteMapping
-	public ResponseEntity<Void> clearCart(HttpServletRequest request) {
-		CartSessionUtil.removeCartInSession(request);
+	public ResponseEntity<Void> clearCart(@RequestParam(value = "cartId", required = false) String cartId) {
+		if (cartId != null) {
+			cartTokenService.remove(cartId);
+		}
 		
 		return ResponseEntity.noContent().build();
 	}
 	
 	public static class CheckoutInfo {
+		private String cartId;
 		private CartInfo cart;
 		private String username;
 		private String address;
-		public CheckoutInfo(CartInfo cart, String username, String address) {
+		public CheckoutInfo(String cartId, CartInfo cart, String username, String address) {
+			this.cartId = cartId;
 			this.cart = cart; this.username = username; this.address = address;
 		}
+		public String getCartId() { return cartId; }
 		public CartInfo getCart() { return cart; }
 		public String getUsername() { return username; }
 		public String getAddress() { return address; }

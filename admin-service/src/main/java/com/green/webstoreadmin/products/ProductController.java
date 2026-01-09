@@ -69,4 +69,9 @@ public class ProductController {
 		return product != null ? ResponseEntity.ok(product) : ResponseEntity.notFound().build();
 	}
 
+	@RequestMapping("/categories")
+	public List<CategoryDto> categories() {
+		return categoryService.getAllCategories();
+	}
+
 }

@@ -5,11 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.green.webstoreclient.client.ProductApiClient;
+import com.green.webstoreclient.client.ProductApiClient.PageResult;
 import com.green.webstoremodels.dto.ProductDto;
 
 @Service
@@ -19,31 +18,14 @@ public class ProductService {
 	@Autowired
 	private ProductApiClient productApiClient;
 	
-	public List<ProductDto> getAllProduct() {
-		return productApiClient.findAll();
+	public Page<ProductDto> search(Integer categoryId, Integer brandId, Double priceFrom, Double priceTo, String keyword, String sort, Integer pageNum, Integer size) {
+		PageResult<ProductDto> result = productApiClient.search(categoryId, brandId, priceFrom, priceTo, keyword, sort, pageNum, size);
+		if (result == null) return Page.empty();
+		return new PageImpl<>(result.content != null ? result.content : List.of(),
+				org.springframework.data.domain.PageRequest.of(result.number, result.size),
+				result.totalElements);
 	}
-	
-	public Page<ProductDto> getProductsWithPage(int pageNum) {
-		List<ProductDto> all = productApiClient.findAll();
-		if (pageNum < 1) pageNum = 1;
-		int pageIndex = pageNum - 1;
-		int start = pageIndex * PAGE_SIZE;
-		int end = Math.min(start + PAGE_SIZE, all.size());
-		List<ProductDto> content = start >= all.size() ? List.of() : all.subList(start, end);
-		Pageable pageable = PageRequest.of(pageIndex, PAGE_SIZE);
-		return new PageImpl<>(content, pageable, all.size());
-	}
-	
-	public List<ProductDto> getProductByName(String name){
-		return productApiClient.findAll().stream()
-				.filter(p -> p.getName() != null && p.getName().toLowerCase().contains(name.toLowerCase()))
-				.toList();
-	}
-	
-	public List<ProductDto> fullTextSearchProductByName(String name){
-		return getProductByName(name);
-	}
-	
+
 	public List<ProductDto> getProductCategory(Integer categoryId) {
 		return productApiClient.findByCategory(categoryId);
 	}

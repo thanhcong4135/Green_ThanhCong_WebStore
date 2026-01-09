@@ -8,10 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.green.webstoreclient.carts.CartInfo;
-import com.green.webstoreclient.carts.CartSessionUtil;
 import com.green.webstoreclient.category.CategoryService;
 import com.green.webstoremodels.dto.CategoryDto;
 import com.green.webstoremodels.dto.ProductDto;
@@ -26,19 +25,19 @@ public class ProductController {
 	private CategoryService categoryService;
 	
 	@GetMapping
-	public ResponseEntity<Page<ProductDto>> listProducts() {		
-		return ResponseEntity.ok(productService.getProductsWithPage(1));
-	}
-	
-	@GetMapping("/page/{pageNum}")
-	public ResponseEntity<Page<ProductDto>> showProductPage(@PathVariable(name = "pageNum") int pageNum) {
-		Page<ProductDto> pageProduct = productService.getProductsWithPage(pageNum);
-		return ResponseEntity.ok(pageProduct);
+	public ResponseEntity<Page<ProductDto>> searchProducts(@RequestParam(required = false) Integer categoryId,
+														   @RequestParam(required = false) Integer brandId,
+														   @RequestParam(required = false) Double priceFrom,
+														   @RequestParam(required = false) Double priceTo,
+														   @RequestParam(required = false) String keyword,
+														   @RequestParam(required = false) String sort,
+														   @RequestParam(required = false, defaultValue = "0") Integer page,
+														   @RequestParam(required = false, defaultValue = "9") Integer size) {
+		return ResponseEntity.ok(productService.search(categoryId, brandId, priceFrom, priceTo, keyword, sort, page, size));
 	}
 	
 	@GetMapping("/category/{id}")
 	public ResponseEntity<List<ProductDto>> byCategory(@PathVariable(name = "id") int id) {
-		
 		List<ProductDto> products = productService.getProductCategory(id);
 		return ResponseEntity.ok(products);
 	}

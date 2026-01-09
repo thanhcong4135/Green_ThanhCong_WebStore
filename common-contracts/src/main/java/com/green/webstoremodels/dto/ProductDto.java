@@ -9,6 +9,8 @@ public class ProductDto {
     private Float price;
     private Float salePrice;
     private Integer categoryId;
+    private String brandName;
+    private Integer brandId;
 
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
@@ -26,4 +28,8 @@ public class ProductDto {
     public void setSalePrice(Float salePrice) { this.salePrice = salePrice; }
     public Integer getCategoryId() { return categoryId; }
     public void setCategoryId(Integer categoryId) { this.categoryId = categoryId; }
+    public String getBrandName() { return brandName; }
+    public void setBrandName(String brandName) { this.brandName = brandName; }
+    public Integer getBrandId() { return brandId; }
+    public void setBrandId(Integer brandId) { this.brandId = brandId; }
 }

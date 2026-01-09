@@ -31,9 +31,35 @@ public class ProductApiClient {
     }
 
     public List<ProductDto> findByCategory(Integer categoryId) {
-        // product-service chưa có filter theo category, tạm filter client-side
-        return findAll().stream()
-                .filter(p -> p.getCategoryId() != null && p.getCategoryId().equals(categoryId))
-                .toList();
+        String url = UriComponentsBuilder.fromHttpUrl(productsUrl)
+                .path("/search")
+                .queryParam("categoryId", categoryId)
+                .toUriString();
+        ProductDto[] products = restTemplate.getForObject(url, ProductDto[].class);
+        return products != null ? Arrays.asList(products) : List.of();
+    }
+
+    public PageResult<ProductDto> search(Integer categoryId, Integer brandId, Double priceFrom, Double priceTo, String keyword, String sort, Integer page, Integer size) {
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(productsUrl)
+                .path("/search");
+        if (categoryId != null) builder.queryParam("categoryId", categoryId);
+        if (brandId != null) builder.queryParam("brandId", brandId);
+        if (priceFrom != null) builder.queryParam("priceFrom", priceFrom);
+        if (priceTo != null) builder.queryParam("priceTo", priceTo);
+        if (keyword != null && !keyword.isBlank()) builder.queryParam("keyword", keyword);
+        if (sort != null && !sort.isBlank()) builder.queryParam("sort", sort);
+        if (page != null) builder.queryParam("page", page);
+        if (size != null) builder.queryParam("size", size);
+
+        return restTemplate.getForObject(builder.toUriString(), PageResult.class);
+    }
+
+    public static class PageResult<T> {
+        public List<T> content;
+        public int number;
+        public int size;
+        public long totalElements;
+        public int totalPages;
+        public boolean last;
     }
 }
